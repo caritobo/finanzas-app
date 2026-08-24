@@ -3708,15 +3708,9 @@
             return _regenerator().w(function (_context4) {
               while (1) switch (_context4.p = _context4.n) {
                 case 0:
-                  console.log("[DEBUG] submit() llamado", {
-                    mode: mode,
-                    email: email,
-                    password: password
-                  });
                   setError("");
                   setLoading(true);
                   _context4.p = 1;
-                  console.log("[DEBUG] a punto de llamar a supabaseClient.auth...");
                   if (!(mode === "signin")) {
                     _context4.n = 3;
                     break;
@@ -3741,14 +3735,12 @@
                 case 5:
                   _ref26 = _t2;
                   _error = _ref26.error;
-                  console.log("[DEBUG] la llamada respondió sin lanzar excepción. error:", _error);
                   if (_error) setError(_error.message);else if (mode === "signup") setError("Cuenta creada. Revisa tu correo si tu proyecto pide confirmación, o inicia sesión.");
                   _context4.n = 7;
                   break;
                 case 6:
                   _context4.p = 6;
                   _t3 = _context4.v;
-                  console.error("[DEBUG] CATCH capturó esto:", _t3);
                   setError("No se pudo conectar con la base de datos. Revisa que SUPABASE_URL y SUPABASE_ANON_KEY estén bien puestos en el código. Detalle: " + ((_t3 === null || _t3 === void 0 ? void 0 : _t3.message) || String(_t3)));
                 case 7:
                   _context4.p = 7;
