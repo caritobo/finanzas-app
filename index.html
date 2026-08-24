@@ -1,0 +1,3848 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    />
+    <title>Mis Finanzas</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      .fig { font-family: 'IBM Plex Mono', monospace; font-variant-numeric: tabular-nums; }
+      .display { font-family: 'Fraunces', serif; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script>
+      function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+      function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+      function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+      function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+      function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+      function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+      function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+      function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+      function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+      function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+      function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+      function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
+      function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+      function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+      function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+      function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+      function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+      function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+      function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+      function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+      var _React = React,
+        useState = _React.useState,
+        useEffect = _React.useEffect,
+        useMemo = _React.useMemo;
+
+      /* =====================================================================
+         CONFIGURA ESTO ANTES DE PUBLICAR
+         1. Crea un proyecto gratis en https://supabase.com
+         2. En el editor SQL de tu proyecto, corre el script supabase-setup.sql
+         3. Ve a Project Settings > API y copia estos dos valores aquí abajo:
+         ===================================================================== */
+      var SUPABASE_URL = "https://egipxfgjxlwmorqlmxtt.supabase.co";
+      var SUPABASE_ANON_KEY = "sb_publishable_Jazoz758B-NkiO7YdQGMFw_tiz_SQ4k";
+      var supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      // ---------- Tokens de diseño ----------
+      var COLORS = {
+        paper: "#EEF1EC",
+        surface: "#FFFFFF",
+        ink: "#1E2B23",
+        inkSoft: "#5B6B60",
+        line: "#D8DED4",
+        primary: "#2F6F4E",
+        primarySoft: "#E4EEE7",
+        gold: "#B8912B",
+        goldSoft: "#F3EAD2",
+        danger: "#AC4A3E",
+        dangerSoft: "#F5E4E1",
+        info: "#4A6B8A",
+        infoSoft: "#E7EDF2"
+      };
+      var DEFAULT_GROUPS = [{
+        id: "necesidades",
+        label: "Necesidades básicas",
+        color: "#2F6F4E"
+      }, {
+        id: "transporte",
+        label: "Transporte",
+        color: "#B8912B"
+      }, {
+        id: "salud",
+        label: "Salud",
+        color: "#AC4A3E"
+      }, {
+        id: "cuidado_personal",
+        label: "Cuidado personal",
+        color: "#6E8F3E"
+      }, {
+        id: "entretenimiento",
+        label: "Entretenimiento",
+        color: "#6E5AA6"
+      }, {
+        id: "adicionales",
+        label: "Adicionales del mes",
+        color: "#8A8A7C"
+      }, {
+        id: "inversiones",
+        label: "Inversiones",
+        color: "#4A6B8A"
+      }, {
+        id: "deudas",
+        label: "Pago de deudas",
+        color: "#7B4B94"
+      }];
+      var GROUP_COLOR_ROTATION = ["#2F6F4E", "#B8912B", "#AC4A3E", "#6E8F3E", "#6E5AA6", "#8A8A7C", "#4A6B8A", "#C77B3E", "#3E7A8C"];
+      var nextGroupColor = function nextGroupColor(existingGroups) {
+        return GROUP_COLOR_ROTATION[existingGroups.length % GROUP_COLOR_ROTATION.length];
+      };
+      var groupInfo = function groupInfo(id, groups) {
+        return groups.find(function (g) {
+          return g.id === id;
+        }) || groups[groups.length - 1] || {
+          id: "adicionales",
+          label: "Sin grupo",
+          color: "#8A8A7C"
+        };
+      };
+      var QUINCENA_LABEL = {
+        q1: "Quincena 1",
+        q2: "Quincena 2",
+        mes: "Todo el mes"
+      };
+      var DEFAULT_CATEGORIES = {
+        groups: DEFAULT_GROUPS,
+        gasto: [{
+          id: "mercado",
+          name: "Mercado",
+          group: "necesidades"
+        }, {
+          id: "arriendo",
+          name: "Arriendo",
+          group: "necesidades"
+        }, {
+          id: "servicios_publicos",
+          name: "Servicios públicos",
+          group: "necesidades"
+        }, {
+          id: "seguridad_social",
+          name: "Seguridad social",
+          group: "necesidades"
+        }, {
+          id: "celular",
+          name: "Celular",
+          group: "necesidades"
+        }, {
+          id: "transporte_uber",
+          name: "Uber / transporte",
+          group: "transporte"
+        }, {
+          id: "gasolina",
+          name: "Gasolina",
+          group: "transporte"
+        }, {
+          id: "parqueadero",
+          name: "Parqueadero",
+          group: "transporte"
+        }, {
+          id: "medicinas",
+          name: "Medicinas",
+          group: "salud"
+        }, {
+          id: "terapias",
+          name: "Terapias",
+          group: "salud"
+        }, {
+          id: "peluqueria",
+          name: "Peluquería",
+          group: "cuidado_personal"
+        }, {
+          id: "aseo",
+          name: "Implementos de aseo",
+          group: "cuidado_personal"
+        }, {
+          id: "salidas",
+          name: "Entretenimiento y salidas",
+          group: "entretenimiento"
+        }, {
+          id: "compras_adicionales",
+          name: "Compras adicionales",
+          group: "adicionales"
+        }, {
+          id: "otros",
+          name: "Otros",
+          group: "adicionales",
+          protected: true
+        }],
+        ingreso: [{
+          id: "salario",
+          name: "Salario"
+        }, {
+          id: "independiente",
+          name: "Independiente"
+        }, {
+          id: "payoneer_usd",
+          name: "Ingreso USD (Payoneer)",
+          protected: true,
+          isUSD: true
+        }, {
+          id: "otros_ingresos",
+          name: "Otros ingresos"
+        }]
+      };
+      function catById(categories, id) {
+        return categories.gasto.find(function (c) {
+          return c.id === id;
+        }) || categories.ingreso.find(function (c) {
+          return c.id === id;
+        }) || {
+          id: id,
+          name: "Sin categoría",
+          group: "adicionales"
+        };
+      }
+      function catColor(cat, groups) {
+        return cat.group ? groupInfo(cat.group, groups).color : COLORS.inkSoft;
+      }
+      function catLabel(categories, id) {
+        return catById(categories, id).name;
+      }
+      var fmt = function fmt(n) {
+        return new Intl.NumberFormat("es-CO", {
+          style: "currency",
+          currency: "COP",
+          maximumFractionDigits: 0
+        }).format(n || 0);
+      };
+      var fmtUSD = function fmtUSD(n) {
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD"
+        }).format(n || 0);
+      };
+      var pct = function pct(n) {
+        return "".concat((n * 100).toFixed(0), "%");
+      };
+      var monthKey = function monthKey(d) {
+        return "".concat(d.getFullYear(), "-").concat(String(d.getMonth() + 1).padStart(2, "0"));
+      };
+      var monthLabel = function monthLabel(key) {
+        var _key$split$map = key.split("-").map(Number),
+          _key$split$map2 = _slicedToArray(_key$split$map, 2),
+          y = _key$split$map2[0],
+          m = _key$split$map2[1];
+        return new Date(y, m - 1, 1).toLocaleDateString("es-CO", {
+          month: "long",
+          year: "numeric"
+        });
+      };
+      var txMonthKey = function txMonthKey(t) {
+        return t.period || t.date.slice(0, 7);
+      };
+      var uid = function uid() {
+        return Math.random().toString(36).slice(2, 10);
+      };
+      var quincenaOfDate = function quincenaOfDate(dateStr) {
+        return new Date(dateStr).getDate() <= 15 ? "q1" : "q2";
+      };
+      var DEFAULT_DATA = {
+        transactions: [],
+        budgets: {},
+        goals: [],
+        debts: [],
+        categories: DEFAULT_CATEGORIES,
+        plan: {
+          incomeMonthly: 0
+        }
+      };
+
+      // Amortización: meses para pagar una deuda al ritmo actual
+      function mesesParaPagar(saldo, tasaAnualPct, pago) {
+        var r = (Number(tasaAnualPct) || 0) / 100 / 12;
+        var P = Number(saldo) || 0;
+        var A = Number(pago) || 0;
+        if (P <= 0) return 0;
+        if (A <= 0) return Infinity;
+        if (r === 0) return Math.ceil(P / A);
+        if (A <= P * r) return Infinity;
+        var n = -Math.log(1 - r * P / A) / Math.log(1 + r);
+        return Math.ceil(n);
+      }
+      function interesTotalEstimado(saldo, tasaAnualPct, pago) {
+        var meses = mesesParaPagar(saldo, tasaAnualPct, pago);
+        if (!isFinite(meses)) return Infinity;
+        return Math.max(0, meses * (Number(pago) || 0) - (Number(saldo) || 0));
+      }
+
+      // Hook para obtener la TRM del día (fuente pública: datos.gov.co / Superfinanciera)
+      function useTRM() {
+        var _useState = useState(0),
+          _useState2 = _slicedToArray(_useState, 2),
+          trm = _useState2[0],
+          setTrm = _useState2[1];
+        var _useState3 = useState(false),
+          _useState4 = _slicedToArray(_useState3, 2),
+          loading = _useState4[0],
+          setLoading = _useState4[1];
+        var _useState5 = useState(false),
+          _useState6 = _slicedToArray(_useState5, 2),
+          error = _useState6[0],
+          setError = _useState6[1];
+        var fetchTRM = /*#__PURE__*/function () {
+          var _fetchTRM = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+            var _json$, resp, json, val, _t;
+            return _regenerator().w(function (_context) {
+              while (1) switch (_context.p = _context.n) {
+                case 0:
+                  setLoading(true);
+                  setError(false);
+                  _context.p = 1;
+                  _context.n = 2;
+                  return fetch("https://www.datos.gov.co/resource/mcec-87by.json?$order=vigenciadesde%20DESC&$limit=1");
+                case 2:
+                  resp = _context.v;
+                  _context.n = 3;
+                  return resp.json();
+                case 3:
+                  json = _context.v;
+                  val = Number(json === null || json === void 0 || (_json$ = json[0]) === null || _json$ === void 0 ? void 0 : _json$.valor);
+                  if (val) setTrm(val);else setError(true);
+                  _context.n = 5;
+                  break;
+                case 4:
+                  _context.p = 4;
+                  _t = _context.v;
+                  setError(true);
+                case 5:
+                  _context.p = 5;
+                  setLoading(false);
+                  return _context.f(5);
+                case 6:
+                  return _context.a(2);
+              }
+            }, _callee, null, [[1, 4, 5, 6]]);
+          }));
+          function fetchTRM() {
+            return _fetchTRM.apply(this, arguments);
+          }
+          return fetchTRM;
+        }();
+        return {
+          trm: trm,
+          setTrm: setTrm,
+          loading: loading,
+          error: error,
+          fetchTRM: fetchTRM
+        };
+      }
+
+      // ---------- App principal (modo prueba local) ----------
+      function FinanzasApp(_ref) {
+        var session = _ref.session;
+        var _useState7 = useState(null),
+          _useState8 = _slicedToArray(_useState7, 2),
+          data = _useState8[0],
+          setData = _useState8[1];
+        var _useState9 = useState(true),
+          _useState0 = _slicedToArray(_useState9, 2),
+          loading = _useState0[0],
+          setLoading = _useState0[1];
+        var _useState1 = useState(false),
+          _useState10 = _slicedToArray(_useState1, 2),
+          saving = _useState10[0],
+          setSaving = _useState10[1];
+        var _useState11 = useState("resumen"),
+          _useState12 = _slicedToArray(_useState11, 2),
+          tab = _useState12[0],
+          setTab = _useState12[1];
+        var _useState13 = useState(new Date()),
+          _useState14 = _slicedToArray(_useState13, 2),
+          cursor = _useState14[0],
+          setCursor = _useState14[1];
+        var _useState15 = useState(false),
+          _useState16 = _slicedToArray(_useState15, 2),
+          showForm = _useState16[0],
+          setShowForm = _useState16[1];
+        useEffect(function () {
+          _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2() {
+            var _yield$supabaseClient, row;
+            return _regenerator().w(function (_context2) {
+              while (1) switch (_context2.n) {
+                case 0:
+                  _context2.n = 1;
+                  return supabaseClient.from("finanzas").select("data").eq("user_id", session.user.id).maybeSingle();
+                case 1:
+                  _yield$supabaseClient = _context2.v;
+                  row = _yield$supabaseClient.data;
+                  setData(row !== null && row !== void 0 && row.data ? _objectSpread(_objectSpread(_objectSpread({}, DEFAULT_DATA), row.data), {}, {
+                    categories: _objectSpread(_objectSpread({}, DEFAULT_CATEGORIES), row.data.categories || {})
+                  }) : DEFAULT_DATA);
+                  setLoading(false);
+                case 2:
+                  return _context2.a(2);
+              }
+            }, _callee2);
+          }))();
+        }, []);
+        var persist = /*#__PURE__*/function () {
+          var _persist = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee3(next) {
+            return _regenerator().w(function (_context3) {
+              while (1) switch (_context3.n) {
+                case 0:
+                  setData(next);
+                  setSaving(true);
+                  _context3.n = 1;
+                  return supabaseClient.from("finanzas").upsert({
+                    user_id: session.user.id,
+                    data: next,
+                    updated_at: new Date().toISOString()
+                  });
+                case 1:
+                  setSaving(false);
+                case 2:
+                  return _context3.a(2);
+              }
+            }, _callee3);
+          }));
+          function persist(_x) {
+            return _persist.apply(this, arguments);
+          }
+          return persist;
+        }();
+        if (loading || !data) {
+          return /*#__PURE__*/React.createElement("div", {
+            style: {
+              background: COLORS.paper
+            },
+            className: "min-h-screen flex items-center justify-center"
+          }, /*#__PURE__*/React.createElement("p", {
+            style: {
+              color: COLORS.inkSoft
+            }
+          }, "Cargando tus finanzas\u2026"));
+        }
+        var mKey = monthKey(cursor);
+        var categories = data.categories;
+        var monthTx = useMemo(function () {
+          return data.transactions.filter(function (t) {
+            return txMonthKey(t) === mKey;
+          });
+        }, [data, mKey]);
+        var ingresos = monthTx.filter(function (t) {
+          return t.type === "ingreso";
+        }).reduce(function (s, t) {
+          return s + t.amount;
+        }, 0);
+        var gastos = monthTx.filter(function (t) {
+          return t.type === "gasto";
+        }).reduce(function (s, t) {
+          return s + t.amount;
+        }, 0);
+        var retirosBolsillo = monthTx.filter(function (t) {
+          return t.type === "retiro" || t.type === "gasto" && t.fromGoal;
+        }).reduce(function (s, t) {
+          return s + t.amount;
+        }, 0);
+        var flujo = ingresos + retirosBolsillo - gastos;
+        var gastosPorCategoria = useMemo(function () {
+          var map = {};
+          monthTx.filter(function (t) {
+            return t.type === "gasto" && !t.toGoal;
+          }).forEach(function (t) {
+            map[t.category] = (map[t.category] || 0) + t.amount;
+          });
+          return Object.entries(map).map(function (_ref3) {
+            var _ref4 = _slicedToArray(_ref3, 2),
+              id = _ref4[0],
+              value = _ref4[1];
+            var c = catById(categories, id);
+            var g = groupInfo(c.group, categories.groups);
+            return {
+              id: id,
+              name: c.name,
+              groupLabel: g.label,
+              group: c.group,
+              color: catColor(c, categories.groups),
+              value: value
+            };
+          }).sort(function (a, b) {
+            return b.value - a.value;
+          });
+        }, [monthTx, categories]);
+        var tendencia = useMemo(function () {
+          var out = [];
+          var _loop = function _loop() {
+            var d = new Date(cursor.getFullYear(), cursor.getMonth() - i, 1);
+            var k = monthKey(d);
+            var tx = data.transactions.filter(function (t) {
+              return txMonthKey(t) === k;
+            });
+            var inc = tx.filter(function (t) {
+              return t.type === "ingreso";
+            }).reduce(function (s, t) {
+              return s + t.amount;
+            }, 0);
+            var retiros = tx.filter(function (t) {
+              return t.type === "retiro" || t.type === "gasto" && t.fromGoal;
+            }).reduce(function (s, t) {
+              return s + t.amount;
+            }, 0);
+            var exp = tx.filter(function (t) {
+              return t.type === "gasto";
+            }).reduce(function (s, t) {
+              return s + t.amount;
+            }, 0);
+            out.push({
+              mes: d.toLocaleDateString("es-CO", {
+                month: "short"
+              }),
+              flujo: inc + retiros - exp
+            });
+          };
+          for (var i = 5; i >= 0; i--) {
+            _loop();
+          }
+          return out;
+        }, [data, cursor]);
+        var addTransaction = function addTransaction(tx) {
+          var nextGoals = data.goals;
+          if (tx.type === "gasto" && tx.fromGoal) {
+            var goal = data.goals.find(function (g) {
+              return g.id === tx.fromGoal;
+            });
+            if (goal) {
+              var mv = {
+                id: uid(),
+                type: "retiro",
+                amount: tx.amount,
+                date: tx.date
+              };
+              nextGoals = data.goals.map(function (g) {
+                return g.id === tx.fromGoal ? _objectSpread(_objectSpread({}, g), {}, {
+                  saved: Math.max(0, g.saved - tx.amount),
+                  movements: [].concat(_toConsumableArray(g.movements), [mv])
+                }) : g;
+              });
+            }
+          }
+          var nextDebts = data.debts;
+          var extra = {};
+          if (tx.type === "gasto") {
+            var debt = data.debts.find(function (d) {
+              return d.categoryId === tx.category;
+            });
+            if (debt) {
+              var monthlyRate = (Number(debt.interestRate) || 0) / 100 / 12;
+              var interesPortion = Math.min(tx.amount, debt.balance * monthlyRate);
+              var abonoCapital = Math.max(0, tx.amount - interesPortion);
+              nextDebts = data.debts.map(function (d) {
+                return d.id === debt.id ? _objectSpread(_objectSpread({}, d), {}, {
+                  balance: Math.max(0, d.balance - abonoCapital)
+                }) : d;
+              });
+              extra = {
+                debtInterestPortion: interesPortion,
+                debtPrincipalPortion: abonoCapital
+              };
+            }
+          }
+          persist(_objectSpread(_objectSpread({}, data), {}, {
+            goals: nextGoals,
+            debts: nextDebts,
+            transactions: [].concat(_toConsumableArray(data.transactions), [_objectSpread(_objectSpread(_objectSpread({}, tx), extra), {}, {
+              id: uid()
+            })])
+          }));
+        };
+        var removeTransaction = function removeTransaction(id) {
+          var tx = data.transactions.find(function (t) {
+            return t.id === id;
+          });
+          var nextDebts = data.debts;
+          if (tx && tx.debtPrincipalPortion) {
+            var debt = data.debts.find(function (d) {
+              return d.categoryId === tx.category;
+            });
+            if (debt) nextDebts = data.debts.map(function (d) {
+              return d.id === debt.id ? _objectSpread(_objectSpread({}, d), {}, {
+                balance: d.balance + tx.debtPrincipalPortion
+              }) : d;
+            });
+          }
+          persist(_objectSpread(_objectSpread({}, data), {}, {
+            debts: nextDebts,
+            transactions: data.transactions.filter(function (t) {
+              return t.id !== id;
+            })
+          }));
+        };
+        var setBudget = function setBudget(catId, patch) {
+          return persist(_objectSpread(_objectSpread({}, data), {}, {
+            budgets: _objectSpread(_objectSpread({}, data.budgets), {}, _defineProperty({}, catId, _objectSpread(_objectSpread({}, data.budgets[catId] || {
+              amount: 0,
+              quincena: "mes"
+            }), patch)))
+          }));
+        };
+        var setIncome = function setIncome(amount) {
+          return persist(_objectSpread(_objectSpread({}, data), {}, {
+            plan: _objectSpread(_objectSpread({}, data.plan), {}, {
+              incomeMonthly: amount
+            })
+          }));
+        };
+        var addGoal = function addGoal(goal) {
+          return persist(_objectSpread(_objectSpread({}, data), {}, {
+            goals: [].concat(_toConsumableArray(data.goals), [_objectSpread(_objectSpread({}, goal), {}, {
+              id: uid(),
+              saved: Number(goal.saved) || 0,
+              movements: [],
+              realBalance: null
+            })])
+          }));
+        };
+        var setGoalSaved = function setGoalSaved(id, value) {
+          return persist(_objectSpread(_objectSpread({}, data), {}, {
+            goals: data.goals.map(function (g) {
+              return g.id === id ? _objectSpread(_objectSpread({}, g), {}, {
+                saved: Math.max(0, value)
+              }) : g;
+            })
+          }));
+        };
+        var contributeGoal = function contributeGoal(id, amount) {
+          var goal = data.goals.find(function (g) {
+            return g.id === id;
+          });
+          if (!goal) return;
+          var now = new Date().toISOString();
+          var mv = {
+            id: uid(),
+            type: "aporte",
+            amount: amount,
+            date: now
+          };
+          var nextGoals = data.goals.map(function (g) {
+            return g.id === id ? _objectSpread(_objectSpread({}, g), {}, {
+              saved: g.saved + amount,
+              movements: [].concat(_toConsumableArray(g.movements), [mv])
+            }) : g;
+          });
+          var tx = {
+            id: uid(),
+            type: "gasto",
+            category: "otros",
+            amount: amount,
+            note: "Aporte a bolsillo: ".concat(goal.name),
+            date: now,
+            toGoal: id
+          };
+          persist(_objectSpread(_objectSpread({}, data), {}, {
+            goals: nextGoals,
+            transactions: [].concat(_toConsumableArray(data.transactions), [tx])
+          }));
+        };
+        var withdrawGoal = function withdrawGoal(id, amount) {
+          var goal = data.goals.find(function (g) {
+            return g.id === id;
+          });
+          if (!goal) return;
+          var now = new Date().toISOString();
+          var mv = {
+            id: uid(),
+            type: "retiro",
+            amount: amount,
+            date: now
+          };
+          var nextGoals = data.goals.map(function (g) {
+            return g.id === id ? _objectSpread(_objectSpread({}, g), {}, {
+              saved: Math.max(0, g.saved - amount),
+              movements: [].concat(_toConsumableArray(g.movements), [mv])
+            }) : g;
+          });
+          var tx = {
+            id: uid(),
+            type: "retiro",
+            amount: amount,
+            note: "Retiro de bolsillo: ".concat(goal.name),
+            date: now,
+            fromGoal: id
+          };
+          persist(_objectSpread(_objectSpread({}, data), {}, {
+            goals: nextGoals,
+            transactions: [].concat(_toConsumableArray(data.transactions), [tx])
+          }));
+        };
+        var setGoalRealBalance = function setGoalRealBalance(id, value) {
+          return persist(_objectSpread(_objectSpread({}, data), {}, {
+            goals: data.goals.map(function (g) {
+              return g.id === id ? _objectSpread(_objectSpread({}, g), {}, {
+                realBalance: value
+              }) : g;
+            })
+          }));
+        };
+        var removeGoal = function removeGoal(id) {
+          return persist(_objectSpread(_objectSpread({}, data), {}, {
+            goals: data.goals.filter(function (g) {
+              return g.id !== id;
+            })
+          }));
+        };
+        var addDebt = function addDebt(debt) {
+          var debtId = uid();
+          var catId = uid();
+          var category = {
+            id: catId,
+            name: "Pago: ".concat(debt.name),
+            group: "deudas",
+            debtId: debtId,
+            protected: true
+          };
+          persist(_objectSpread(_objectSpread({}, data), {}, {
+            debts: [].concat(_toConsumableArray(data.debts), [_objectSpread(_objectSpread({}, debt), {}, {
+              id: debtId,
+              categoryId: catId
+            })]),
+            categories: _objectSpread(_objectSpread({}, categories), {}, {
+              gasto: [].concat(_toConsumableArray(categories.gasto), [category])
+            })
+          }));
+        };
+        var updateDebt = function updateDebt(id, patch) {
+          var nextDebts = data.debts.map(function (d) {
+            return d.id === id ? _objectSpread(_objectSpread({}, d), patch) : d;
+          });
+          var nextCategories = categories;
+          if (patch.name) {
+            var debt = data.debts.find(function (d) {
+              return d.id === id;
+            });
+            if (debt && debt.categoryId) {
+              nextCategories = _objectSpread(_objectSpread({}, categories), {}, {
+                gasto: categories.gasto.map(function (c) {
+                  return c.id === debt.categoryId ? _objectSpread(_objectSpread({}, c), {}, {
+                    name: "Pago: ".concat(patch.name)
+                  }) : c;
+                })
+              });
+            }
+          }
+          persist(_objectSpread(_objectSpread({}, data), {}, {
+            debts: nextDebts,
+            categories: nextCategories
+          }));
+        };
+        var removeDebt = function removeDebt(id) {
+          var debt = data.debts.find(function (d) {
+            return d.id === id;
+          });
+          var nextCategories = categories;
+          var nextBudgets = data.budgets;
+          if (debt && debt.categoryId) {
+            nextCategories = _objectSpread(_objectSpread({}, categories), {}, {
+              gasto: categories.gasto.filter(function (c) {
+                return c.id !== debt.categoryId;
+              })
+            });
+            nextBudgets = _objectSpread({}, data.budgets);
+            delete nextBudgets[debt.categoryId];
+          }
+          persist(_objectSpread(_objectSpread({}, data), {}, {
+            debts: data.debts.filter(function (d) {
+              return d.id !== id;
+            }),
+            categories: nextCategories,
+            budgets: nextBudgets
+          }));
+        };
+        var addCategory = function addCategory(type, group, name) {
+          var cat = type === "gasto" ? {
+            id: uid(),
+            name: name,
+            group: group
+          } : {
+            id: uid(),
+            name: name
+          };
+          persist(_objectSpread(_objectSpread({}, data), {}, {
+            categories: _objectSpread(_objectSpread({}, categories), {}, _defineProperty({}, type, [].concat(_toConsumableArray(categories[type]), [cat])))
+          }));
+        };
+        var removeCategory = function removeCategory(type, id) {
+          var cat = categories[type].find(function (c) {
+            return c.id === id;
+          });
+          if (cat && cat.protected) return;
+          var nextBudgets = _objectSpread({}, data.budgets);
+          delete nextBudgets[id];
+          persist(_objectSpread(_objectSpread({}, data), {}, {
+            categories: _objectSpread(_objectSpread({}, categories), {}, _defineProperty({}, type, categories[type].filter(function (c) {
+              return c.id !== id;
+            }))),
+            budgets: nextBudgets
+          }));
+        };
+        var addGroup = function addGroup(label) {
+          var group = {
+            id: uid(),
+            label: label,
+            color: nextGroupColor(categories.groups)
+          };
+          persist(_objectSpread(_objectSpread({}, data), {}, {
+            categories: _objectSpread(_objectSpread({}, categories), {}, {
+              groups: [].concat(_toConsumableArray(categories.groups), [group])
+            })
+          }));
+        };
+        var renameGroup = function renameGroup(id, label) {
+          return persist(_objectSpread(_objectSpread({}, data), {}, {
+            categories: _objectSpread(_objectSpread({}, categories), {}, {
+              groups: categories.groups.map(function (g) {
+                return g.id === id ? _objectSpread(_objectSpread({}, g), {}, {
+                  label: label
+                }) : g;
+              })
+            })
+          }));
+        };
+        var removeGroup = function removeGroup(id) {
+          var removedIds = categories.gasto.filter(function (c) {
+            return c.group === id;
+          }).map(function (c) {
+            return c.id;
+          });
+          var nextBudgets = _objectSpread({}, data.budgets);
+          removedIds.forEach(function (cid) {
+            return delete nextBudgets[cid];
+          });
+          persist(_objectSpread(_objectSpread({}, data), {}, {
+            categories: _objectSpread(_objectSpread({}, categories), {}, {
+              groups: categories.groups.filter(function (g) {
+                return g.id !== id;
+              }),
+              gasto: categories.gasto.filter(function (c) {
+                return c.group !== id;
+              })
+            }),
+            budgets: nextBudgets
+          }));
+        };
+        var renameCategory = function renameCategory(type, id, name) {
+          return persist(_objectSpread(_objectSpread({}, data), {}, {
+            categories: _objectSpread(_objectSpread({}, categories), {}, _defineProperty({}, type, categories[type].map(function (c) {
+              return c.id === id ? _objectSpread(_objectSpread({}, c), {}, {
+                name: name
+              }) : c;
+            })))
+          }));
+        };
+        return /*#__PURE__*/React.createElement("div", {
+          style: {
+            background: COLORS.paper,
+            color: COLORS.ink
+          },
+          className: "min-h-screen pb-24"
+        }, /*#__PURE__*/React.createElement("header", {
+          className: "px-5 pt-6 pb-4 sticky top-0 z-10",
+          style: {
+            background: COLORS.paper
+          }
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "flex items-center justify-between"
+        }, /*#__PURE__*/React.createElement("h1", {
+          className: "display",
+          style: {
+            fontSize: 22,
+            fontWeight: 600
+          }
+        }, "Mis Finanzas"), saving && /*#__PURE__*/React.createElement("span", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "guardando\u2026"), /*#__PURE__*/React.createElement("button", {
+          onClick: function onClick() {
+            return supabaseClient.auth.signOut();
+          },
+          style: {
+            fontSize: 11,
+            color: COLORS.inkSoft,
+            marginLeft: 8
+          }
+        }, "Salir")), /*#__PURE__*/React.createElement("div", {
+          className: "flex items-center justify-center gap-3 mt-3"
+        }, /*#__PURE__*/React.createElement("button", {
+          onClick: function onClick() {
+            return setCursor(new Date(cursor.getFullYear(), cursor.getMonth() - 1, 1));
+          },
+          style: {
+            color: COLORS.inkSoft
+          }
+        }, "\u2039"), /*#__PURE__*/React.createElement("span", {
+          className: "fig capitalize",
+          style: {
+            fontSize: 13,
+            color: COLORS.inkSoft,
+            minWidth: 130,
+            textAlign: "center"
+          }
+        }, monthLabel(mKey)), /*#__PURE__*/React.createElement("button", {
+          onClick: function onClick() {
+            return setCursor(new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1));
+          },
+          style: {
+            color: COLORS.inkSoft
+          }
+        }, "\u203A"))), /*#__PURE__*/React.createElement("main", {
+          className: "px-5"
+        }, tab === "resumen" && /*#__PURE__*/React.createElement(Resumen, {
+          ingresos: ingresos,
+          gastos: gastos,
+          flujo: flujo,
+          retirosBolsillo: retirosBolsillo,
+          gastosPorCategoria: gastosPorCategoria,
+          tendencia: tendencia,
+          monthTx: monthTx,
+          goals: data.goals,
+          categories: categories,
+          onDelete: removeTransaction
+        }), tab === "movimientos" && /*#__PURE__*/React.createElement(Movimientos, {
+          monthTx: monthTx,
+          categories: categories,
+          goals: data.goals,
+          onAdd: addTransaction,
+          onDelete: removeTransaction
+        }), tab === "plan" && /*#__PURE__*/React.createElement(Plan, {
+          data: data,
+          categories: categories,
+          onSetBudget: setBudget,
+          onSetIncome: setIncome,
+          gastosPorCategoria: gastosPorCategoria,
+          monthTx: monthTx,
+          mKey: mKey,
+          addDebt: addDebt,
+          updateDebt: updateDebt,
+          removeDebt: removeDebt,
+          addCategory: addCategory,
+          removeCategory: removeCategory,
+          renameCategory: renameCategory,
+          addGroup: addGroup,
+          renameGroup: renameGroup,
+          removeGroup: removeGroup,
+          onGoToMetas: function onGoToMetas() {
+            return setTab("metas");
+          }
+        }), tab === "metas" && /*#__PURE__*/React.createElement(Metas, {
+          goals: data.goals,
+          mKey: mKey,
+          onAdd: addGoal,
+          onContribute: contributeGoal,
+          onWithdraw: withdrawGoal,
+          onSetSaved: setGoalSaved,
+          onSetRealBalance: setGoalRealBalance,
+          onRemove: removeGoal
+        })), showForm && /*#__PURE__*/React.createElement(TransactionModal, {
+          categories: categories,
+          goals: data.goals,
+          onClose: function onClose() {
+            return setShowForm(false);
+          },
+          onAdd: function onAdd(tx) {
+            addTransaction(tx);
+            setShowForm(false);
+          }
+        }), /*#__PURE__*/React.createElement("nav", {
+          className: "fixed bottom-0 left-0 right-0 flex justify-around items-center py-2 z-20",
+          style: {
+            background: COLORS.surface,
+            borderTop: "1px solid ".concat(COLORS.line)
+          }
+        }, /*#__PURE__*/React.createElement(NavBtn, {
+          active: tab === "resumen",
+          onClick: function onClick() {
+            return setTab("resumen");
+          },
+          label: "Resumen"
+        }), /*#__PURE__*/React.createElement(NavBtn, {
+          active: tab === "movimientos",
+          onClick: function onClick() {
+            return setTab("movimientos");
+          },
+          label: "Registro"
+        }), /*#__PURE__*/React.createElement("button", {
+          onClick: function onClick() {
+            return setShowForm(true);
+          },
+          style: {
+            background: COLORS.primary
+          },
+          className: "rounded-full p-3 -mt-6 shadow-lg text-white text-xl leading-none w-11 h-11 flex items-center justify-center"
+        }, "+"), /*#__PURE__*/React.createElement(NavBtn, {
+          active: tab === "plan",
+          onClick: function onClick() {
+            return setTab("plan");
+          },
+          label: "Plan"
+        }), /*#__PURE__*/React.createElement(NavBtn, {
+          active: tab === "metas",
+          onClick: function onClick() {
+            return setTab("metas");
+          },
+          label: "Bolsillos"
+        })));
+      }
+      function NavBtn(_ref5) {
+        var active = _ref5.active,
+          onClick = _ref5.onClick,
+          label = _ref5.label;
+        return /*#__PURE__*/React.createElement("button", {
+          onClick: onClick,
+          className: "flex flex-col items-center gap-0.5 px-2",
+          style: {
+            color: active ? COLORS.primary : COLORS.inkSoft,
+            fontSize: 10
+          }
+        }, label);
+      }
+      function Card(_ref6) {
+        var children = _ref6.children,
+          style = _ref6.style;
+        return /*#__PURE__*/React.createElement("div", {
+          style: _objectSpread({
+            background: COLORS.surface,
+            border: "1px solid ".concat(COLORS.line),
+            borderRadius: 14
+          }, style),
+          className: "p-4"
+        }, children);
+      }
+      function NumberField(_ref7) {
+        var value = _ref7.value,
+          _onChange = _ref7.onChange,
+          placeholder = _ref7.placeholder,
+          style = _ref7.style;
+        return /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          value: value === 0 ? "" : value !== null && value !== void 0 ? value : "",
+          placeholder: placeholder || "0",
+          onChange: function onChange(e) {
+            return _onChange(e.target.value === "" ? 0 : Number(e.target.value));
+          },
+          className: "fig text-right",
+          style: _objectSpread({
+            border: "1px solid ".concat(COLORS.line),
+            borderRadius: 8,
+            fontSize: 13,
+            padding: "6px 8px"
+          }, style)
+        });
+      }
+      function BudgetField(_ref8) {
+        var budget = _ref8.budget,
+          _onChange2 = _ref8.onChange;
+        var b = budget || {
+          amount: 0,
+          quincena: "mes"
+        };
+        return /*#__PURE__*/React.createElement("div", {
+          className: "flex gap-1.5 items-center"
+        }, /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          value: b.amount === 0 ? "" : b.amount,
+          placeholder: "0",
+          onChange: function onChange(e) {
+            return _onChange2(_objectSpread(_objectSpread({}, b), {}, {
+              amount: e.target.value === "" ? 0 : Number(e.target.value)
+            }));
+          },
+          className: "fig text-right",
+          style: {
+            width: 100,
+            border: "1px solid ".concat(COLORS.line),
+            borderRadius: 8,
+            fontSize: 13,
+            padding: "6px 8px"
+          }
+        }), /*#__PURE__*/React.createElement("select", {
+          value: b.quincena,
+          onChange: function onChange(e) {
+            return _onChange2(_objectSpread(_objectSpread({}, b), {}, {
+              quincena: e.target.value
+            }));
+          },
+          style: {
+            fontSize: 10,
+            border: "1px solid ".concat(COLORS.line),
+            borderRadius: 8,
+            padding: "5px 2px",
+            color: COLORS.inkSoft
+          }
+        }, /*#__PURE__*/React.createElement("option", {
+          value: "mes"
+        }, "Mes"), /*#__PURE__*/React.createElement("option", {
+          value: "q1"
+        }, "Q1"), /*#__PURE__*/React.createElement("option", {
+          value: "q2"
+        }, "Q2")));
+      }
+
+      // Campos para registrar un ingreso en USD (Payoneer) con TRM y comisión
+      function USDIncomeFields(_ref9) {
+        var amountUSD = _ref9.amountUSD,
+          setAmountUSD = _ref9.setAmountUSD,
+          commissionPct = _ref9.commissionPct,
+          setCommissionPct = _ref9.setCommissionPct,
+          trmHook = _ref9.trmHook;
+        useEffect(function () {
+          if (trmHook.trm === 0 && !trmHook.loading) trmHook.fetchTRM();
+          // eslint-disable-next-line
+        }, []);
+        var computedCOP = (Number(amountUSD) || 0) * (trmHook.trm || 0) * (1 - (Number(commissionPct) || 0) / 100);
+        return /*#__PURE__*/React.createElement("div", {
+          className: "mb-2",
+          style: {
+            background: COLORS.infoSoft,
+            borderRadius: 10,
+            padding: 10
+          }
+        }, /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "Monto en USD"), /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          value: amountUSD,
+          onChange: function onChange(e) {
+            return setAmountUSD(e.target.value);
+          },
+          className: "w-full mb-2 p-2 fig",
+          style: {
+            borderRadius: 8,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 14
+          }
+        }), /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "TRM del d\xEDa ", trmHook.loading && "· cargando…", " ", trmHook.error && "· no se pudo obtener, ingrésala tú"), /*#__PURE__*/React.createElement("div", {
+          className: "flex gap-2 mb-2"
+        }, /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          value: trmHook.trm || "",
+          onChange: function onChange(e) {
+            return trmHook.setTrm(Number(e.target.value));
+          },
+          className: "flex-1 p-2 fig",
+          style: {
+            borderRadius: 8,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 14
+          }
+        }), /*#__PURE__*/React.createElement("button", {
+          onClick: trmHook.fetchTRM,
+          style: {
+            fontSize: 11,
+            color: COLORS.info,
+            padding: "0 10px"
+          }
+        }, "Actualizar")), /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "Comisi\xF3n total aprox. Payoneer + retiro (%)"), /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          value: commissionPct,
+          onChange: function onChange(e) {
+            return setCommissionPct(e.target.value);
+          },
+          className: "w-full mb-2 p-2 fig",
+          style: {
+            borderRadius: 8,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 14
+          }
+        }), /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft
+          }
+        }, "Recibir\xE1s aprox. ", /*#__PURE__*/React.createElement("span", {
+          className: "fig",
+          style: {
+            color: COLORS.ink,
+            fontWeight: 600
+          }
+        }, fmt(computedCOP))));
+      }
+
+      // ---------- Resumen ----------
+      function Resumen(_ref0) {
+        var ingresos = _ref0.ingresos,
+          gastos = _ref0.gastos,
+          flujo = _ref0.flujo,
+          retirosBolsillo = _ref0.retirosBolsillo,
+          gastosPorCategoria = _ref0.gastosPorCategoria,
+          tendencia = _ref0.tendencia,
+          monthTx = _ref0.monthTx,
+          goals = _ref0.goals,
+          categories = _ref0.categories,
+          onDelete = _ref0.onDelete;
+        var positivo = flujo >= 0;
+        var maxTend = Math.max.apply(Math, [1].concat(_toConsumableArray(tendencia.map(function (t) {
+          return Math.abs(t.flujo);
+        }))));
+        var totalAhorrado = (goals || []).reduce(function (s, g) {
+          return s + g.saved;
+        }, 0);
+        return /*#__PURE__*/React.createElement("div", {
+          className: "space-y-4 pt-2"
+        }, /*#__PURE__*/React.createElement(Card, {
+          style: {
+            background: positivo ? COLORS.primarySoft : COLORS.dangerSoft,
+            border: "none"
+          }
+        }, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft
+          }
+        }, "Flujo de caja del mes"), /*#__PURE__*/React.createElement("p", {
+          className: "fig",
+          style: {
+            fontSize: 30,
+            fontWeight: 600,
+            color: positivo ? COLORS.primary : COLORS.danger
+          }
+        }, fmt(flujo)), /*#__PURE__*/React.createElement("div", {
+          className: "flex gap-4 mt-2 flex-wrap"
+        }, /*#__PURE__*/React.createElement("span", {
+          className: "fig",
+          style: {
+            fontSize: 13,
+            color: COLORS.primary
+          }
+        }, "+ ", fmt(ingresos), " ingreso"), retirosBolsillo > 0 && /*#__PURE__*/React.createElement("span", {
+          className: "fig",
+          style: {
+            fontSize: 13,
+            color: COLORS.primary
+          }
+        }, "+ ", fmt(retirosBolsillo), " retiro"), /*#__PURE__*/React.createElement("span", {
+          className: "fig",
+          style: {
+            fontSize: 13,
+            color: COLORS.danger
+          }
+        }, "- ", fmt(gastos), " gastos"))), goals && goals.length > 0 && /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 4
+          }
+        }, "Bolsillos de ahorro"), /*#__PURE__*/React.createElement("p", {
+          className: "fig",
+          style: {
+            fontSize: 20,
+            fontWeight: 600
+          }
+        }, fmt(totalAhorrado)), /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 11,
+            color: COLORS.inkSoft
+          }
+        }, "total ahorrado en tus bolsillos"), retirosBolsillo > 0 && /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 11,
+            color: COLORS.danger,
+            marginTop: 4
+          },
+          className: "fig"
+        }, "Retiraste ", fmt(retirosBolsillo), " este mes"), /*#__PURE__*/React.createElement("div", {
+          className: "grid grid-cols-2 gap-2 mt-3"
+        }, goals.map(function (g) {
+          var p = g.target > 0 ? Math.min(100, g.saved / g.target * 100) : null;
+          return /*#__PURE__*/React.createElement("div", {
+            key: g.id,
+            style: {
+              background: COLORS.paper,
+              borderRadius: 10,
+              padding: 8
+            }
+          }, /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 11,
+              fontWeight: 600
+            },
+            className: "truncate"
+          }, g.name), /*#__PURE__*/React.createElement("p", {
+            className: "fig",
+            style: {
+              fontSize: 13
+            }
+          }, fmt(g.saved)), p !== null ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+            style: {
+              background: "#fff",
+              borderRadius: 4,
+              height: 4,
+              overflow: "hidden",
+              marginTop: 4
+            }
+          }, /*#__PURE__*/React.createElement("div", {
+            style: {
+              width: "".concat(p, "%"),
+              background: COLORS.gold,
+              height: "100%"
+            }
+          })), /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 9,
+              color: COLORS.inkSoft,
+              marginTop: 2
+            }
+          }, pct(p / 100), " de ", fmt(g.target))) : /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 9,
+              color: COLORS.inkSoft,
+              marginTop: 2
+            }
+          }, "sin meta total"));
+        }))), gastosPorCategoria.length > 0 && /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 8
+          }
+        }, "Gastos por categor\xEDa"), gastosPorCategoria.map(function (c) {
+          return /*#__PURE__*/React.createElement("div", {
+            key: c.id,
+            className: "mb-2"
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "flex justify-between",
+            style: {
+              fontSize: 12
+            }
+          }, /*#__PURE__*/React.createElement("span", null, c.groupLabel, " \xB7 ", c.name), /*#__PURE__*/React.createElement("span", {
+            className: "fig"
+          }, fmt(c.value))), /*#__PURE__*/React.createElement("div", {
+            style: {
+              background: COLORS.paper,
+              borderRadius: 6,
+              height: 6,
+              overflow: "hidden"
+            }
+          }, /*#__PURE__*/React.createElement("div", {
+            style: {
+              width: "".concat(c.value / gastosPorCategoria[0].value * 100, "%"),
+              background: c.color,
+              height: "100%"
+            }
+          })));
+        })), /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 10
+          }
+        }, "Tendencia \xB7 \xFAltimos 6 meses"), /*#__PURE__*/React.createElement("div", {
+          className: "flex items-end gap-2",
+          style: {
+            height: 90
+          }
+        }, tendencia.map(function (t, i) {
+          return /*#__PURE__*/React.createElement("div", {
+            key: i,
+            className: "flex-1 flex flex-col items-center justify-end h-full"
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "fig",
+            style: {
+              fontSize: 9,
+              color: COLORS.inkSoft,
+              marginBottom: 2
+            }
+          }, Math.round(t.flujo / 1000), "k"), /*#__PURE__*/React.createElement("div", {
+            style: {
+              width: "70%",
+              height: "".concat(Math.max(4, Math.abs(t.flujo) / maxTend * 60), "px"),
+              background: t.flujo >= 0 ? COLORS.primary : COLORS.danger,
+              borderRadius: 3
+            }
+          }), /*#__PURE__*/React.createElement("div", {
+            style: {
+              fontSize: 10,
+              color: COLORS.inkSoft,
+              marginTop: 4
+            },
+            className: "capitalize"
+          }, t.mes));
+        }))), /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 4
+          }
+        }, "\xDAltimos movimientos"), monthTx.length === 0 && /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft
+          }
+        }, "A\xFAn no registras movimientos este mes."), /*#__PURE__*/React.createElement(LedgerList, {
+          tx: _toConsumableArray(monthTx).reverse().slice(0, 6),
+          categories: categories,
+          goals: goals,
+          onDelete: onDelete
+        })));
+      }
+      function LedgerList(_ref1) {
+        var tx = _ref1.tx,
+          categories = _ref1.categories,
+          goals = _ref1.goals,
+          onDelete = _ref1.onDelete;
+        return /*#__PURE__*/React.createElement("div", null, tx.map(function (t) {
+          var _goals$find, _goals$find2;
+          var cat = catById(categories, t.category);
+          var groupLabel = cat.group ? groupInfo(cat.group, categories.groups).label : null;
+          var fromGoalName = t.fromGoal && goals ? (_goals$find = goals.find(function (g) {
+            return g.id === t.fromGoal;
+          })) === null || _goals$find === void 0 ? void 0 : _goals$find.name : null;
+          var toGoalName = t.toGoal && goals ? (_goals$find2 = goals.find(function (g) {
+            return g.id === t.toGoal;
+          })) === null || _goals$find2 === void 0 ? void 0 : _goals$find2.name : null;
+          return /*#__PURE__*/React.createElement("div", {
+            key: t.id,
+            className: "flex items-center justify-between py-2",
+            style: {
+              borderBottom: "1px solid ".concat(COLORS.line)
+            }
+          }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 13
+            }
+          }, t.note || cat.name, t.fromGoal && /*#__PURE__*/React.createElement("span", {
+            style: {
+              fontSize: 9,
+              color: COLORS.gold
+            }
+          }, " \xB7 ", fromGoalName ? "bolsillo: ".concat(fromGoalName) : "bolsillo"), t.toGoal && /*#__PURE__*/React.createElement("span", {
+            style: {
+              fontSize: 9,
+              color: COLORS.info
+            }
+          }, " \xB7 aporte a ", toGoalName || "bolsillo")), /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 10,
+              color: COLORS.inkSoft
+            }
+          }, new Date(t.date).toLocaleDateString("es-CO"), t.category ? " \xB7 ".concat(groupLabel ? groupLabel + " · " : "").concat(cat.name) : "", t.period && t.period !== t.date.slice(0, 7) && /*#__PURE__*/React.createElement("span", {
+            style: {
+              color: COLORS.info
+            }
+          }, " \xB7 cuenta como ", monthLabel(t.period))), t.category === "payoneer_usd" && /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 10,
+              color: COLORS.inkSoft
+            },
+            className: "fig"
+          }, fmtUSD(t.amountUSD), " \xB7 TRM ", t.trm, " \xB7 comisi\xF3n ", t.commissionPct, "%"), t.debtPrincipalPortion != null && /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 10,
+              color: COLORS.inkSoft
+            },
+            className: "fig"
+          }, "Abono a capital: ", fmt(t.debtPrincipalPortion), " \xB7 Inter\xE9s: ", fmt(t.debtInterestPortion))), /*#__PURE__*/React.createElement("div", {
+            className: "flex items-center gap-2"
+          }, /*#__PURE__*/React.createElement("span", {
+            className: "fig",
+            style: {
+              fontSize: 13,
+              color: t.type === "ingreso" || t.type === "retiro" ? COLORS.primary : COLORS.danger
+            }
+          }, t.type === "ingreso" || t.type === "retiro" ? "+" : "-", fmt(t.amount)), /*#__PURE__*/React.createElement("button", {
+            onClick: function onClick() {
+              return onDelete(t.id);
+            },
+            style: {
+              fontSize: 11,
+              color: COLORS.inkSoft
+            }
+          }, "\u2715")));
+        }));
+      }
+      function CategorySelect(_ref10) {
+        var categories = _ref10.categories,
+          type = _ref10.type,
+          value = _ref10.value,
+          _onChange3 = _ref10.onChange;
+        var list = type === "gasto" ? categories.gasto : categories.ingreso;
+        if (type === "gasto") {
+          return /*#__PURE__*/React.createElement("select", {
+            value: value,
+            onChange: function onChange(e) {
+              return _onChange3(e.target.value);
+            },
+            className: "w-full mb-2 p-2",
+            style: {
+              borderRadius: 10,
+              border: "1px solid ".concat(COLORS.line),
+              fontSize: 13
+            }
+          }, categories.groups.map(function (g) {
+            var cats = list.filter(function (c) {
+              return c.group === g.id;
+            });
+            if (cats.length === 0) return null;
+            return /*#__PURE__*/React.createElement("optgroup", {
+              key: g.id,
+              label: g.label
+            }, cats.map(function (c) {
+              return /*#__PURE__*/React.createElement("option", {
+                key: c.id,
+                value: c.id
+              }, c.name);
+            }));
+          }));
+        }
+        return /*#__PURE__*/React.createElement("select", {
+          value: value,
+          onChange: function onChange(e) {
+            return _onChange3(e.target.value);
+          },
+          className: "w-full mb-2 p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }, list.map(function (c) {
+          return /*#__PURE__*/React.createElement("option", {
+            key: c.id,
+            value: c.id
+          }, c.name);
+        }));
+      }
+
+      // ---------- Movimientos ----------
+      function GoalPicker(_ref11) {
+        var goals = _ref11.goals,
+          value = _ref11.value,
+          _onChange4 = _ref11.onChange;
+        if (!goals || goals.length === 0) return null;
+        var selected = goals.find(function (g) {
+          return g.id === value;
+        });
+        return /*#__PURE__*/React.createElement("div", {
+          className: "mb-2"
+        }, /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "\xBFLo pagaste con un bolsillo de ahorro?"), /*#__PURE__*/React.createElement("select", {
+          value: value || "",
+          onChange: function onChange(e) {
+            return _onChange4(e.target.value || null);
+          },
+          className: "w-full p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }, /*#__PURE__*/React.createElement("option", {
+          value: ""
+        }, "No, de mi flujo normal"), goals.map(function (g) {
+          return /*#__PURE__*/React.createElement("option", {
+            key: g.id,
+            value: g.id
+          }, g.name, " (", fmt(g.saved), " disponible)");
+        })), selected && selected.saved <= 0 && /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 10,
+            color: COLORS.danger,
+            marginTop: 2
+          }
+        }, "Ojo: este bolsillo est\xE1 en $0, quedar\xEDa en negativo."));
+      }
+      function monthOptions(centerDate, before, after) {
+        var opts = [];
+        for (var i = -before; i <= after; i++) {
+          var d = new Date(centerDate.getFullYear(), centerDate.getMonth() + i, 1);
+          var key = monthKey(d);
+          opts.push({
+            key: key,
+            label: monthLabel(key)
+          });
+        }
+        return opts;
+      }
+      function capitalize(s) {
+        return s.charAt(0).toUpperCase() + s.slice(1);
+      }
+      function PeriodOverride(_ref12) {
+        var date = _ref12.date,
+          period = _ref12.period,
+          _onChange5 = _ref12.onChange;
+        var dateMonth = date ? date.slice(0, 7) : monthKey(new Date());
+        var center = date ? new Date(date + "T12:00:00") : new Date();
+        var options = monthOptions(center, 6, 2);
+        var value = period || dateMonth;
+        return /*#__PURE__*/React.createElement("div", {
+          className: "mb-2"
+        }, /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "\xBFA qu\xE9 mes corresponde este movimiento?"), /*#__PURE__*/React.createElement("select", {
+          value: value,
+          onChange: function onChange(e) {
+            return _onChange5(e.target.value === dateMonth ? null : e.target.value);
+          },
+          className: "w-full p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }, options.map(function (o) {
+          return /*#__PURE__*/React.createElement("option", {
+            key: o.key,
+            value: o.key
+          }, capitalize(o.label), o.key === dateMonth ? " (mes de la fecha)" : "");
+        })));
+      }
+      function Movimientos(_ref13) {
+        var _categories$gasto$;
+        var monthTx = _ref13.monthTx,
+          categories = _ref13.categories,
+          goals = _ref13.goals,
+          onAdd = _ref13.onAdd,
+          onDelete = _ref13.onDelete;
+        var todayStr = function todayStr() {
+          return new Date().toISOString().slice(0, 10);
+        };
+        var _useState17 = useState({
+            type: "gasto",
+            category: ((_categories$gasto$ = categories.gasto[0]) === null || _categories$gasto$ === void 0 ? void 0 : _categories$gasto$.id) || "otros",
+            amount: "",
+            note: "",
+            date: todayStr(),
+            period: null,
+            fromGoal: null
+          }),
+          _useState18 = _slicedToArray(_useState17, 2),
+          quick = _useState18[0],
+          setQuick = _useState18[1];
+        var _useState19 = useState(""),
+          _useState20 = _slicedToArray(_useState19, 2),
+          amountUSD = _useState20[0],
+          setAmountUSD = _useState20[1];
+        var _useState21 = useState(""),
+          _useState22 = _slicedToArray(_useState21, 2),
+          commissionPct = _useState22[0],
+          setCommissionPct = _useState22[1];
+        var trmHook = useTRM();
+        var submit = function submit() {
+          var amount,
+            extra = {};
+          if (quick.category === "payoneer_usd") {
+            amount = (Number(amountUSD) || 0) * (trmHook.trm || 0) * (1 - (Number(commissionPct) || 0) / 100);
+            extra = {
+              amountUSD: Number(amountUSD) || 0,
+              trm: trmHook.trm,
+              commissionPct: Number(commissionPct) || 0
+            };
+          } else {
+            amount = Number(quick.amount);
+          }
+          if (!amount || amount <= 0) return;
+          var fromGoal = quick.type === "gasto" ? quick.fromGoal : null;
+          onAdd(_objectSpread(_objectSpread(_objectSpread({}, quick), {}, {
+            amount: amount,
+            fromGoal: fromGoal
+          }, extra), {}, {
+            date: new Date(quick.date + "T12:00:00").toISOString()
+          }));
+          setQuick(_objectSpread(_objectSpread({}, quick), {}, {
+            amount: "",
+            note: "",
+            date: todayStr(),
+            period: null,
+            fromGoal: null
+          }));
+          setAmountUSD("");
+          setCommissionPct("");
+        };
+        return /*#__PURE__*/React.createElement("div", {
+          className: "space-y-4 pt-2"
+        }, /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 10
+          }
+        }, "Registro r\xE1pido"), /*#__PURE__*/React.createElement("div", {
+          className: "flex gap-2 mb-3"
+        }, ["gasto", "ingreso"].map(function (t) {
+          return /*#__PURE__*/React.createElement("button", {
+            key: t,
+            onClick: function onClick() {
+              var _categories$gasto$2, _categories$ingreso$;
+              return setQuick(_objectSpread(_objectSpread({}, quick), {}, {
+                type: t,
+                category: t === "gasto" ? ((_categories$gasto$2 = categories.gasto[0]) === null || _categories$gasto$2 === void 0 ? void 0 : _categories$gasto$2.id) || "otros" : ((_categories$ingreso$ = categories.ingreso[0]) === null || _categories$ingreso$ === void 0 ? void 0 : _categories$ingreso$.id) || "otros_ingresos",
+                period: t === "gasto" ? null : quick.period
+              }));
+            },
+            style: {
+              flex: 1,
+              padding: "8px",
+              borderRadius: 10,
+              fontSize: 13,
+              background: quick.type === t ? t === "gasto" ? COLORS.dangerSoft : COLORS.primarySoft : COLORS.paper,
+              color: quick.type === t ? t === "gasto" ? COLORS.danger : COLORS.primary : COLORS.inkSoft
+            }
+          }, t === "gasto" ? "Gasto" : "Ingreso");
+        })), /*#__PURE__*/React.createElement(CategorySelect, {
+          categories: categories,
+          type: quick.type,
+          value: quick.category,
+          onChange: function onChange(v) {
+            return setQuick(_objectSpread(_objectSpread({}, quick), {}, {
+              category: v
+            }));
+          }
+        }), quick.category === "payoneer_usd" ? /*#__PURE__*/React.createElement(USDIncomeFields, {
+          amountUSD: amountUSD,
+          setAmountUSD: setAmountUSD,
+          commissionPct: commissionPct,
+          setCommissionPct: setCommissionPct,
+          trmHook: trmHook
+        }) : /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          placeholder: "Monto",
+          value: quick.amount,
+          onChange: function onChange(e) {
+            return setQuick(_objectSpread(_objectSpread({}, quick), {}, {
+              amount: e.target.value
+            }));
+          },
+          className: "w-full mb-2 p-2 fig",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 14
+          }
+        }), quick.type === "gasto" && /*#__PURE__*/React.createElement(GoalPicker, {
+          goals: goals,
+          value: quick.fromGoal,
+          onChange: function onChange(v) {
+            return setQuick(_objectSpread(_objectSpread({}, quick), {}, {
+              fromGoal: v
+            }));
+          }
+        }), /*#__PURE__*/React.createElement("input", {
+          type: "date",
+          value: quick.date,
+          onChange: function onChange(e) {
+            return setQuick(_objectSpread(_objectSpread({}, quick), {}, {
+              date: e.target.value
+            }));
+          },
+          className: "w-full mb-2 p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }), quick.type === "ingreso" && /*#__PURE__*/React.createElement(PeriodOverride, {
+          date: quick.date,
+          period: quick.period,
+          onChange: function onChange(p) {
+            return setQuick(_objectSpread(_objectSpread({}, quick), {}, {
+              period: p
+            }));
+          }
+        }), /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          placeholder: "Nota (opcional)",
+          value: quick.note,
+          onChange: function onChange(e) {
+            return setQuick(_objectSpread(_objectSpread({}, quick), {}, {
+              note: e.target.value
+            }));
+          },
+          className: "w-full mb-3 p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }), /*#__PURE__*/React.createElement("button", {
+          onClick: submit,
+          style: {
+            background: COLORS.ink,
+            color: "#fff",
+            borderRadius: 10,
+            padding: "10px"
+          },
+          className: "w-full text-sm font-medium"
+        }, "Agregar movimiento")), /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 4
+          }
+        }, "Este mes (", monthTx.length, ")"), monthTx.length === 0 ? /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft
+          }
+        }, "Sin movimientos todav\xEDa.") : /*#__PURE__*/React.createElement(LedgerList, {
+          tx: _toConsumableArray(monthTx).sort(function (a, b) {
+            return new Date(b.date) - new Date(a.date);
+          }),
+          categories: categories,
+          goals: goals,
+          onDelete: onDelete
+        })));
+      }
+      function TransactionModal(_ref14) {
+        var _categories$gasto$3;
+        var categories = _ref14.categories,
+          goals = _ref14.goals,
+          onClose = _ref14.onClose,
+          onAdd = _ref14.onAdd;
+        var _useState23 = useState({
+            type: "gasto",
+            category: ((_categories$gasto$3 = categories.gasto[0]) === null || _categories$gasto$3 === void 0 ? void 0 : _categories$gasto$3.id) || "otros",
+            amount: "",
+            note: "",
+            date: new Date().toISOString().slice(0, 10),
+            period: null,
+            fromGoal: null
+          }),
+          _useState24 = _slicedToArray(_useState23, 2),
+          form = _useState24[0],
+          setForm = _useState24[1];
+        var _useState25 = useState(""),
+          _useState26 = _slicedToArray(_useState25, 2),
+          amountUSD = _useState26[0],
+          setAmountUSD = _useState26[1];
+        var _useState27 = useState(""),
+          _useState28 = _slicedToArray(_useState27, 2),
+          commissionPct = _useState28[0],
+          setCommissionPct = _useState28[1];
+        var trmHook = useTRM();
+        var submit = function submit() {
+          var amount,
+            extra = {};
+          if (form.category === "payoneer_usd") {
+            amount = (Number(amountUSD) || 0) * (trmHook.trm || 0) * (1 - (Number(commissionPct) || 0) / 100);
+            extra = {
+              amountUSD: Number(amountUSD) || 0,
+              trm: trmHook.trm,
+              commissionPct: Number(commissionPct) || 0
+            };
+          } else {
+            amount = Number(form.amount);
+          }
+          if (!amount || amount <= 0) return;
+          var fromGoal = form.type === "gasto" ? form.fromGoal : null;
+          onAdd(_objectSpread(_objectSpread(_objectSpread({}, form), {}, {
+            amount: amount,
+            fromGoal: fromGoal
+          }, extra), {}, {
+            date: new Date(form.date).toISOString()
+          }));
+        };
+        return /*#__PURE__*/React.createElement("div", {
+          className: "fixed inset-0 z-30 flex items-center justify-center p-4",
+          style: {
+            background: "rgba(30,43,35,0.45)"
+          },
+          onClick: onClose
+        }, /*#__PURE__*/React.createElement("div", {
+          onClick: function onClick(e) {
+            return e.stopPropagation();
+          },
+          style: {
+            background: COLORS.surface,
+            borderRadius: 18,
+            width: "100%",
+            maxWidth: 420,
+            maxHeight: "85vh",
+            overflowY: "auto"
+          },
+          className: "p-5"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "flex justify-between items-center mb-3"
+        }, /*#__PURE__*/React.createElement("p", {
+          className: "display",
+          style: {
+            fontSize: 16,
+            fontWeight: 600
+          }
+        }, "Nuevo movimiento"), /*#__PURE__*/React.createElement("button", {
+          onClick: onClose,
+          style: {
+            color: COLORS.inkSoft
+          }
+        }, "\u2715")), /*#__PURE__*/React.createElement("div", {
+          className: "flex gap-2 mb-3"
+        }, ["gasto", "ingreso"].map(function (t) {
+          return /*#__PURE__*/React.createElement("button", {
+            key: t,
+            onClick: function onClick() {
+              var _categories$gasto$4, _categories$ingreso$2;
+              return setForm(_objectSpread(_objectSpread({}, form), {}, {
+                type: t,
+                category: t === "gasto" ? ((_categories$gasto$4 = categories.gasto[0]) === null || _categories$gasto$4 === void 0 ? void 0 : _categories$gasto$4.id) || "otros" : ((_categories$ingreso$2 = categories.ingreso[0]) === null || _categories$ingreso$2 === void 0 ? void 0 : _categories$ingreso$2.id) || "otros_ingresos",
+                period: t === "gasto" ? null : form.period
+              }));
+            },
+            style: {
+              flex: 1,
+              padding: "8px",
+              borderRadius: 10,
+              fontSize: 13,
+              background: form.type === t ? t === "gasto" ? COLORS.dangerSoft : COLORS.primarySoft : COLORS.paper,
+              color: form.type === t ? t === "gasto" ? COLORS.danger : COLORS.primary : COLORS.inkSoft
+            }
+          }, t === "gasto" ? "Gasto" : "Ingreso");
+        })), /*#__PURE__*/React.createElement(CategorySelect, {
+          categories: categories,
+          type: form.type,
+          value: form.category,
+          onChange: function onChange(v) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              category: v
+            }));
+          }
+        }), form.category === "payoneer_usd" ? /*#__PURE__*/React.createElement(USDIncomeFields, {
+          amountUSD: amountUSD,
+          setAmountUSD: setAmountUSD,
+          commissionPct: commissionPct,
+          setCommissionPct: setCommissionPct,
+          trmHook: trmHook
+        }) : /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          placeholder: "Monto",
+          value: form.amount,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              amount: e.target.value
+            }));
+          },
+          className: "w-full mb-2 p-2 fig",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 14
+          }
+        }), form.type === "gasto" && /*#__PURE__*/React.createElement(GoalPicker, {
+          goals: goals,
+          value: form.fromGoal,
+          onChange: function onChange(v) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              fromGoal: v
+            }));
+          }
+        }), /*#__PURE__*/React.createElement("input", {
+          type: "date",
+          value: form.date,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              date: e.target.value
+            }));
+          },
+          className: "w-full mb-2 p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }), form.type === "ingreso" && /*#__PURE__*/React.createElement(PeriodOverride, {
+          date: form.date,
+          period: form.period,
+          onChange: function onChange(p) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              period: p
+            }));
+          }
+        }), /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          placeholder: "Nota (opcional)",
+          value: form.note,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              note: e.target.value
+            }));
+          },
+          className: "w-full mb-3 p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }), /*#__PURE__*/React.createElement("button", {
+          onClick: submit,
+          style: {
+            background: COLORS.ink,
+            color: "#fff",
+            borderRadius: 10,
+            padding: "10px"
+          },
+          className: "w-full text-sm font-medium"
+        }, "Guardar")));
+      }
+
+      // ---------- Plan (Ingreso / Categorías / Deudas / Análisis) ----------
+      function Plan(_ref15) {
+        var _data$plan;
+        var data = _ref15.data,
+          categories = _ref15.categories,
+          onSetBudget = _ref15.onSetBudget,
+          onSetIncome = _ref15.onSetIncome,
+          gastosPorCategoria = _ref15.gastosPorCategoria,
+          monthTx = _ref15.monthTx,
+          mKey = _ref15.mKey,
+          addDebt = _ref15.addDebt,
+          updateDebt = _ref15.updateDebt,
+          removeDebt = _ref15.removeDebt,
+          addCategory = _ref15.addCategory,
+          removeCategory = _ref15.removeCategory,
+          renameCategory = _ref15.renameCategory,
+          addGroup = _ref15.addGroup,
+          renameGroup = _ref15.renameGroup,
+          removeGroup = _ref15.removeGroup,
+          onGoToMetas = _ref15.onGoToMetas;
+        var _useState29 = useState("ingreso"),
+          _useState30 = _slicedToArray(_useState29, 2),
+          view = _useState30[0],
+          setView = _useState30[1];
+        var budgets = data.budgets || {};
+        var debts = data.debts || [];
+        var goals = data.goals || [];
+        var income = Number((_data$plan = data.plan) === null || _data$plan === void 0 ? void 0 : _data$plan.incomeMonthly) || 0;
+        var gastoMap = Object.fromEntries(gastosPorCategoria.map(function (g) {
+          return [g.id, g.value];
+        }));
+        var totalGastosPresupuestados = categories.gasto.reduce(function (s, c) {
+          var _budgets$c$id;
+          return s + (Number((_budgets$c$id = budgets[c.id]) === null || _budgets$c$id === void 0 ? void 0 : _budgets$c$id.amount) || 0);
+        }, 0);
+        var deudasManual = debts.filter(function (d) {
+          return !d.payrollDeduction;
+        });
+        var deudasNomina = debts.filter(function (d) {
+          return d.payrollDeduction;
+        });
+        var totalDeudaMensual = deudasManual.reduce(function (s, d) {
+          return s + (Number(d.monthlyPayment) || 0);
+        }, 0);
+        var totalDeudaNomina = deudasNomina.reduce(function (s, d) {
+          return s + (Number(d.monthlyPayment) || 0);
+        }, 0);
+        var totalAhorroPlaneado = goals.reduce(function (s, g) {
+          return s + (Number(g.monthlyTarget) || 0);
+        }, 0);
+        var totalAsignado = totalGastosPresupuestados + totalDeudaMensual + totalAhorroPlaneado;
+        var disponible = income - totalAsignado;
+        return /*#__PURE__*/React.createElement("div", {
+          className: "pt-2 pb-4"
+        }, /*#__PURE__*/React.createElement("div", {
+          className: "flex gap-1.5 mb-4"
+        }, [["ingreso", "Ingreso"], ["categorias", "Categorías"], ["deudas", "Deudas"], ["analisis", "Análisis"]].map(function (_ref16) {
+          var _ref17 = _slicedToArray(_ref16, 2),
+            id = _ref17[0],
+            label = _ref17[1];
+          return /*#__PURE__*/React.createElement("button", {
+            key: id,
+            onClick: function onClick() {
+              return setView(id);
+            },
+            style: {
+              flex: 1,
+              padding: "7px 2px",
+              borderRadius: 9,
+              fontSize: 11,
+              background: view === id ? COLORS.ink : COLORS.surface,
+              color: view === id ? "#fff" : COLORS.inkSoft,
+              border: "1px solid ".concat(view === id ? COLORS.ink : COLORS.line)
+            }
+          }, label);
+        })), view === "ingreso" && /*#__PURE__*/React.createElement(IngresoView, {
+          income: income,
+          onSetIncome: onSetIncome,
+          categories: categories,
+          budgets: budgets,
+          onSetBudget: onSetBudget,
+          gastoMap: gastoMap,
+          totalGastosPresupuestados: totalGastosPresupuestados,
+          totalDeudaMensual: totalDeudaMensual,
+          totalDeudaNomina: totalDeudaNomina,
+          deudaNominaCount: deudasNomina.length,
+          totalAhorroPlaneado: totalAhorroPlaneado,
+          disponible: disponible,
+          debtCount: deudasManual.length,
+          goalCount: goals.length,
+          goToMetas: onGoToMetas
+        }), view === "categorias" && /*#__PURE__*/React.createElement(CategoriasView, {
+          categories: categories,
+          addCategory: addCategory,
+          removeCategory: removeCategory,
+          renameCategory: renameCategory,
+          addGroup: addGroup,
+          renameGroup: renameGroup,
+          removeGroup: removeGroup
+        }), view === "deudas" && /*#__PURE__*/React.createElement(DeudasView, {
+          debts: debts,
+          monthTx: monthTx,
+          addDebt: addDebt,
+          updateDebt: updateDebt,
+          removeDebt: removeDebt
+        }), view === "analisis" && /*#__PURE__*/React.createElement(AnalisisView, {
+          income: income,
+          categories: categories,
+          budgets: budgets,
+          gastoMap: gastoMap,
+          monthTx: monthTx,
+          mKey: mKey,
+          totalGastosPresupuestados: totalGastosPresupuestados,
+          totalDeudaMensual: totalDeudaMensual,
+          totalDeudaNomina: totalDeudaNomina,
+          totalAhorroPlaneado: totalAhorroPlaneado,
+          disponible: disponible,
+          debts: debts
+        }));
+      }
+      function IngresoView(_ref18) {
+        var income = _ref18.income,
+          onSetIncome = _ref18.onSetIncome,
+          categories = _ref18.categories,
+          budgets = _ref18.budgets,
+          onSetBudget = _ref18.onSetBudget,
+          gastoMap = _ref18.gastoMap,
+          totalGastosPresupuestados = _ref18.totalGastosPresupuestados,
+          totalDeudaMensual = _ref18.totalDeudaMensual,
+          totalDeudaNomina = _ref18.totalDeudaNomina,
+          deudaNominaCount = _ref18.deudaNominaCount,
+          totalAhorroPlaneado = _ref18.totalAhorroPlaneado,
+          disponible = _ref18.disponible,
+          debtCount = _ref18.debtCount,
+          goalCount = _ref18.goalCount,
+          goToMetas = _ref18.goToMetas;
+        var segments = income > 0 ? [{
+          label: "Gastos",
+          value: totalGastosPresupuestados,
+          color: COLORS.gold
+        }, {
+          label: "Deudas",
+          value: totalDeudaMensual,
+          color: COLORS.danger
+        }, {
+          label: "Ahorro planeado",
+          value: totalAhorroPlaneado,
+          color: COLORS.info
+        }, {
+          label: "Disponible",
+          value: Math.max(0, disponible),
+          color: COLORS.primary
+        }] : [];
+        var totalGastadoReal = Object.values(gastoMap).reduce(function (s, v) {
+          return s + v;
+        }, 0);
+        var disponibleReal = totalGastosPresupuestados - totalGastadoReal;
+        return /*#__PURE__*/React.createElement("div", {
+          className: "space-y-4"
+        }, /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 8
+          }
+        }, "\xBFCu\xE1nto ganas al mes?"), /*#__PURE__*/React.createElement(NumberField, {
+          value: income,
+          onChange: onSetIncome,
+          placeholder: "Ej. 10000000",
+          style: {
+            width: "100%",
+            textAlign: "left",
+            fontSize: 16,
+            padding: "10px"
+          }
+        })), totalGastosPresupuestados > 0 && /*#__PURE__*/React.createElement(Card, {
+          style: {
+            background: disponibleReal >= 0 ? COLORS.primarySoft : COLORS.dangerSoft,
+            border: "none"
+          }
+        }, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft
+          }
+        }, "De lo que presupuestaste este mes llevas gastado"), /*#__PURE__*/React.createElement("p", {
+          className: "fig",
+          style: {
+            fontSize: 20,
+            fontWeight: 600
+          }
+        }, fmt(totalGastadoReal), " ", /*#__PURE__*/React.createElement("span", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft,
+            fontFamily: "Inter"
+          }
+        }, "de ", fmt(totalGastosPresupuestados))), /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 11,
+            color: disponibleReal >= 0 ? COLORS.primary : COLORS.danger,
+            marginTop: 2
+          },
+          className: "fig"
+        }, disponibleReal >= 0 ? "Te quedan ".concat(fmt(disponibleReal), " sin gastar") : "Te pasaste por ".concat(fmt(Math.abs(disponibleReal)))), /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft,
+            marginTop: 6
+          }
+        }, "Es la suma de lo que te queda en cada categor\xEDa por separado, no plata libre para gastar en cualquier cosa \u2014 mira cu\xE1nto le queda a cada una m\xE1s abajo.")), categories.groups.map(function (group) {
+          var cats = categories.gasto.filter(function (c) {
+            return c.group === group.id;
+          });
+          if (cats.length === 0) return null;
+          var subtotal = cats.reduce(function (s, c) {
+            var _budgets$c$id2;
+            return s + (Number((_budgets$c$id2 = budgets[c.id]) === null || _budgets$c$id2 === void 0 ? void 0 : _budgets$c$id2.amount) || 0);
+          }, 0);
+          var gastadoGrupo = cats.reduce(function (s, c) {
+            return s + (gastoMap[c.id] || 0);
+          }, 0);
+          return /*#__PURE__*/React.createElement(Card, {
+            key: group.id
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "flex justify-between items-center mb-2"
+          }, /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 13,
+              fontWeight: 600
+            }
+          }, group.label), /*#__PURE__*/React.createElement("span", {
+            className: "fig",
+            style: {
+              fontSize: 11,
+              color: COLORS.inkSoft
+            }
+          }, fmt(gastadoGrupo), " de ", fmt(subtotal))), cats.map(function (c) {
+            var _budgets$c$id3;
+            var presupuesto = Number((_budgets$c$id3 = budgets[c.id]) === null || _budgets$c$id3 === void 0 ? void 0 : _budgets$c$id3.amount) || 0;
+            var gastado = gastoMap[c.id] || 0;
+            var disponibleCat = presupuesto - gastado;
+            var excedido = presupuesto > 0 && gastado > presupuesto;
+            var pctCat = presupuesto > 0 ? Math.min(100, gastado / presupuesto * 100) : 0;
+            return /*#__PURE__*/React.createElement("div", {
+              key: c.id,
+              className: "mb-3"
+            }, /*#__PURE__*/React.createElement("div", {
+              className: "flex items-center justify-between gap-2"
+            }, /*#__PURE__*/React.createElement("span", {
+              style: {
+                fontSize: 13
+              }
+            }, c.name), /*#__PURE__*/React.createElement(BudgetField, {
+              budget: budgets[c.id],
+              onChange: function onChange(b) {
+                return onSetBudget(c.id, b);
+              }
+            })), presupuesto > 0 && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+              style: {
+                background: COLORS.paper,
+                borderRadius: 6,
+                height: 6,
+                overflow: "hidden",
+                marginTop: 6
+              }
+            }, /*#__PURE__*/React.createElement("div", {
+              style: {
+                width: "".concat(pctCat, "%"),
+                background: excedido ? COLORS.danger : group.color,
+                height: "100%"
+              }
+            })), /*#__PURE__*/React.createElement("p", {
+              style: {
+                fontSize: 10,
+                color: excedido ? COLORS.danger : COLORS.inkSoft,
+                marginTop: 2
+              },
+              className: "fig"
+            }, fmt(gastado), " gastado \xB7 ", excedido ? "excedido en ".concat(fmt(gastado - presupuesto)) : "".concat(fmt(disponibleCat), " disponible"))), presupuesto === 0 && gastado > 0 && /*#__PURE__*/React.createElement("p", {
+              style: {
+                fontSize: 10,
+                color: COLORS.inkSoft,
+                marginTop: 2
+              },
+              className: "fig"
+            }, fmt(gastado), " gastado (sin presupuesto asignado)"));
+          }));
+        }), /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("div", {
+          className: "flex items-center justify-between mb-1"
+        }, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600
+          }
+        }, "Deudas fijas")), /*#__PURE__*/React.createElement("p", {
+          className: "fig",
+          style: {
+            fontSize: 18,
+            fontWeight: 600
+          }
+        }, fmt(totalDeudaMensual), /*#__PURE__*/React.createElement("span", {
+          style: {
+            fontSize: 11,
+            color: COLORS.inkSoft,
+            fontFamily: "Inter"
+          }
+        }, " / mes")), /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 11,
+            color: COLORS.inkSoft
+          }
+        }, debtCount, " ", debtCount === 1 ? "deuda registrada" : "deudas registradas", " \xB7 ed\xEDtalas en la pesta\xF1a \"Deudas\""), deudaNominaCount > 0 && /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft,
+            marginTop: 4
+          },
+          className: "fig"
+        }, "No incluye ", fmt(totalDeudaNomina), " de ", deudaNominaCount, " ", deudaNominaCount === 1 ? "deuda con descuento" : "deudas con descuento", " autom\xE1tico de n\xF3mina \u2014 esa plata nunca llega a tu ingreso, as\xED que ya est\xE1 descontada.")), /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("div", {
+          className: "flex items-center justify-between mb-1"
+        }, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600
+          }
+        }, "Ahorro planeado este mes"), /*#__PURE__*/React.createElement("button", {
+          onClick: goToMetas,
+          style: {
+            fontSize: 11,
+            color: COLORS.primary
+          }
+        }, "Editar bolsillos \u2192")), /*#__PURE__*/React.createElement("p", {
+          className: "fig",
+          style: {
+            fontSize: 18,
+            fontWeight: 600
+          }
+        }, fmt(totalAhorroPlaneado), /*#__PURE__*/React.createElement("span", {
+          style: {
+            fontSize: 11,
+            color: COLORS.inkSoft,
+            fontFamily: "Inter"
+          }
+        }, " / mes")), /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 11,
+            color: COLORS.inkSoft
+          }
+        }, goalCount, " ", goalCount === 1 ? "bolsillo" : "bolsillos", " con meta mensual")), /*#__PURE__*/React.createElement(Card, {
+          style: {
+            background: disponible >= 0 ? COLORS.primarySoft : COLORS.dangerSoft,
+            border: "none"
+          }
+        }, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft
+          }
+        }, disponible >= 0 ? "Disponible sin asignar" : "Te estás pasando de tu ingreso por"), /*#__PURE__*/React.createElement("p", {
+          className: "fig",
+          style: {
+            fontSize: 24,
+            fontWeight: 600,
+            color: disponible >= 0 ? COLORS.primary : COLORS.danger
+          }
+        }, fmt(Math.abs(disponible))), income > 0 && /*#__PURE__*/React.createElement("div", {
+          className: "flex rounded-lg overflow-hidden mt-3",
+          style: {
+            height: 10
+          }
+        }, segments.map(function (s, i) {
+          return s.value > 0 && /*#__PURE__*/React.createElement("div", {
+            key: i,
+            style: {
+              width: "".concat(Math.min(100, s.value / income * 100), "%"),
+              background: s.color
+            },
+            title: s.label
+          });
+        })), /*#__PURE__*/React.createElement("div", {
+          className: "flex flex-wrap gap-3 mt-2"
+        }, segments.map(function (s, i) {
+          return s.value > 0 && /*#__PURE__*/React.createElement("span", {
+            key: i,
+            style: {
+              fontSize: 10,
+              color: COLORS.inkSoft
+            },
+            className: "flex items-center gap-1"
+          }, /*#__PURE__*/React.createElement("span", {
+            style: {
+              width: 7,
+              height: 7,
+              borderRadius: 4,
+              background: s.color,
+              display: "inline-block"
+            }
+          }), s.label);
+        }))));
+      }
+      function EditableLabel(_ref19) {
+        var value = _ref19.value,
+          onSave = _ref19.onSave,
+          fontSize = _ref19.fontSize,
+          fontWeight = _ref19.fontWeight,
+          isProtected = _ref19.isProtected;
+        var _useState31 = useState(false),
+          _useState32 = _slicedToArray(_useState31, 2),
+          editing = _useState32[0],
+          setEditing = _useState32[1];
+        var _useState33 = useState(value),
+          _useState34 = _slicedToArray(_useState33, 2),
+          temp = _useState34[0],
+          setTemp = _useState34[1];
+        if (editing) {
+          return /*#__PURE__*/React.createElement("input", {
+            autoFocus: true,
+            value: temp,
+            onChange: function onChange(e) {
+              return setTemp(e.target.value);
+            },
+            onBlur: function onBlur() {
+              var v = temp.trim();
+              if (v) onSave(v);else setTemp(value);
+              setEditing(false);
+            },
+            onKeyDown: function onKeyDown(e) {
+              if (e.key === "Enter") e.currentTarget.blur();
+              if (e.key === "Escape") {
+                setTemp(value);
+                setEditing(false);
+              }
+            },
+            style: {
+              fontSize: fontSize,
+              fontWeight: fontWeight,
+              border: "1px solid ".concat(COLORS.line),
+              borderRadius: 6,
+              padding: "2px 6px"
+            }
+          });
+        }
+        return /*#__PURE__*/React.createElement("span", {
+          onClick: function onClick() {
+            return !isProtected && setEditing(true);
+          },
+          style: {
+            fontSize: fontSize,
+            fontWeight: fontWeight,
+            cursor: isProtected ? "default" : "text",
+            borderBottom: isProtected ? "none" : "1px dashed ".concat(COLORS.line)
+          }
+        }, value);
+      }
+      function CategoriasView(_ref20) {
+        var categories = _ref20.categories,
+          addCategory = _ref20.addCategory,
+          removeCategory = _ref20.removeCategory,
+          renameCategory = _ref20.renameCategory,
+          addGroup = _ref20.addGroup,
+          renameGroup = _ref20.renameGroup,
+          removeGroup = _ref20.removeGroup;
+        var _useState35 = useState({}),
+          _useState36 = _slicedToArray(_useState35, 2),
+          newCatByGroup = _useState36[0],
+          setNewCatByGroup = _useState36[1];
+        var _useState37 = useState(""),
+          _useState38 = _slicedToArray(_useState37, 2),
+          newIncomeCat = _useState38[0],
+          setNewIncomeCat = _useState38[1];
+        var _useState39 = useState(""),
+          _useState40 = _slicedToArray(_useState39, 2),
+          newGroupName = _useState40[0],
+          setNewGroupName = _useState40[1];
+        return /*#__PURE__*/React.createElement("div", {
+          className: "space-y-4"
+        }, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 11,
+            color: COLORS.inkSoft
+          }
+        }, "Crea tus propios grupos y categor\xEDas, como en tu plantilla \u2014 toca el nombre para renombrarlo."), /*#__PURE__*/React.createElement(Card, {
+          style: {
+            background: COLORS.goldSoft,
+            border: "none"
+          }
+        }, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 8
+          }
+        }, "Nuevo grupo"), /*#__PURE__*/React.createElement("div", {
+          className: "flex gap-2"
+        }, /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          placeholder: "Ej. Mascotas, Educaci\xF3n",
+          value: newGroupName,
+          onChange: function onChange(e) {
+            return setNewGroupName(e.target.value);
+          },
+          className: "flex-1 p-2",
+          style: {
+            borderRadius: 8,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13,
+            background: COLORS.surface
+          }
+        }), /*#__PURE__*/React.createElement("button", {
+          onClick: function onClick() {
+            var v = newGroupName.trim();
+            if (v) {
+              addGroup(v);
+              setNewGroupName("");
+            }
+          },
+          style: {
+            background: COLORS.gold,
+            color: "#fff",
+            borderRadius: 8,
+            padding: "0 14px",
+            fontSize: 12
+          }
+        }, "Crear"))), categories.groups.map(function (group) {
+          var cats = categories.gasto.filter(function (c) {
+            return c.group === group.id;
+          });
+          return /*#__PURE__*/React.createElement(Card, {
+            key: group.id
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "flex items-center justify-between mb-2"
+          }, /*#__PURE__*/React.createElement("p", {
+            className: "flex items-center gap-2",
+            style: {
+              fontSize: 13,
+              fontWeight: 600
+            }
+          }, /*#__PURE__*/React.createElement("span", {
+            style: {
+              width: 8,
+              height: 8,
+              borderRadius: 4,
+              background: group.color,
+              display: "inline-block"
+            }
+          }), /*#__PURE__*/React.createElement(EditableLabel, {
+            value: group.label,
+            onSave: function onSave(v) {
+              return renameGroup(group.id, v);
+            },
+            fontSize: 13,
+            fontWeight: 600
+          })), /*#__PURE__*/React.createElement("button", {
+            onClick: function onClick() {
+              if (cats.length === 0 || window.confirm("Esto tambi\xE9n elimina las ".concat(cats.length, " categor\xEDas dentro de \"").concat(group.label, "\". \xBFContinuar?"))) removeGroup(group.id);
+            },
+            style: {
+              fontSize: 11,
+              color: COLORS.inkSoft
+            }
+          }, "Eliminar grupo")), cats.length === 0 && /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 11,
+              color: COLORS.inkSoft,
+              marginBottom: 6
+            }
+          }, "Sin categor\xEDas todav\xEDa."), cats.map(function (c) {
+            return /*#__PURE__*/React.createElement("div", {
+              key: c.id,
+              className: "flex items-center justify-between py-1.5",
+              style: {
+                borderBottom: "1px solid ".concat(COLORS.line)
+              }
+            }, /*#__PURE__*/React.createElement(EditableLabel, {
+              value: c.name,
+              onSave: function onSave(v) {
+                return renameCategory("gasto", c.id, v);
+              },
+              fontSize: 13,
+              isProtected: c.protected
+            }), !c.protected && /*#__PURE__*/React.createElement("button", {
+              onClick: function onClick() {
+                return removeCategory("gasto", c.id);
+              },
+              style: {
+                fontSize: 11,
+                color: COLORS.inkSoft
+              }
+            }, "\u2715"));
+          }), /*#__PURE__*/React.createElement("div", {
+            className: "flex gap-2 mt-2"
+          }, /*#__PURE__*/React.createElement("input", {
+            type: "text",
+            placeholder: "Nueva categor\xEDa",
+            value: newCatByGroup[group.id] || "",
+            onChange: function onChange(e) {
+              return setNewCatByGroup(_objectSpread(_objectSpread({}, newCatByGroup), {}, _defineProperty({}, group.id, e.target.value)));
+            },
+            className: "flex-1 p-2",
+            style: {
+              borderRadius: 8,
+              border: "1px solid ".concat(COLORS.line),
+              fontSize: 12
+            }
+          }), /*#__PURE__*/React.createElement("button", {
+            onClick: function onClick() {
+              var v = (newCatByGroup[group.id] || "").trim();
+              if (v) {
+                addCategory("gasto", group.id, v);
+                setNewCatByGroup(_objectSpread(_objectSpread({}, newCatByGroup), {}, _defineProperty({}, group.id, "")));
+              }
+            },
+            style: {
+              background: COLORS.primarySoft,
+              color: COLORS.primary,
+              borderRadius: 8,
+              padding: "0 12px",
+              fontSize: 12
+            }
+          }, "+")));
+        }), /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 8
+          }
+        }, "Categor\xEDas de ingreso"), categories.ingreso.map(function (c) {
+          return /*#__PURE__*/React.createElement("div", {
+            key: c.id,
+            className: "flex items-center justify-between py-1.5",
+            style: {
+              borderBottom: "1px solid ".concat(COLORS.line)
+            }
+          }, /*#__PURE__*/React.createElement("span", {
+            className: "flex items-center gap-1"
+          }, /*#__PURE__*/React.createElement(EditableLabel, {
+            value: c.name,
+            onSave: function onSave(v) {
+              return renameCategory("ingreso", c.id, v);
+            },
+            fontSize: 13,
+            isProtected: c.protected
+          }), c.isUSD && /*#__PURE__*/React.createElement("span", {
+            style: {
+              fontSize: 9,
+              color: COLORS.info
+            }
+          }, "\xB7 USD")), !c.protected && /*#__PURE__*/React.createElement("button", {
+            onClick: function onClick() {
+              return removeCategory("ingreso", c.id);
+            },
+            style: {
+              fontSize: 11,
+              color: COLORS.inkSoft
+            }
+          }, "\u2715"));
+        }), /*#__PURE__*/React.createElement("div", {
+          className: "flex gap-2 mt-2"
+        }, /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          placeholder: "Nueva categor\xEDa de ingreso",
+          value: newIncomeCat,
+          onChange: function onChange(e) {
+            return setNewIncomeCat(e.target.value);
+          },
+          className: "flex-1 p-2",
+          style: {
+            borderRadius: 8,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 12
+          }
+        }), /*#__PURE__*/React.createElement("button", {
+          onClick: function onClick() {
+            var v = newIncomeCat.trim();
+            if (v) {
+              addCategory("ingreso", null, v);
+              setNewIncomeCat("");
+            }
+          },
+          style: {
+            background: COLORS.primarySoft,
+            color: COLORS.primary,
+            borderRadius: 8,
+            padding: "0 12px",
+            fontSize: 12
+          }
+        }, "+"))));
+      }
+      function DeudasView(_ref21) {
+        var debts = _ref21.debts,
+          monthTx = _ref21.monthTx,
+          addDebt = _ref21.addDebt,
+          updateDebt = _ref21.updateDebt,
+          removeDebt = _ref21.removeDebt;
+        var _useState41 = useState({
+            name: "",
+            balance: "",
+            monthlyPayment: "",
+            interestRate: "",
+            payrollDeduction: false
+          }),
+          _useState42 = _slicedToArray(_useState41, 2),
+          form = _useState42[0],
+          setForm = _useState42[1];
+        var submit = function submit() {
+          if (!form.name || !Number(form.balance) || !Number(form.monthlyPayment)) return;
+          addDebt({
+            name: form.name,
+            balance: Number(form.balance),
+            monthlyPayment: Number(form.monthlyPayment),
+            interestRate: Number(form.interestRate) || 0,
+            payrollDeduction: form.payrollDeduction
+          });
+          setForm({
+            name: "",
+            balance: "",
+            monthlyPayment: "",
+            interestRate: "",
+            payrollDeduction: false
+          });
+        };
+        var totalBalance = debts.reduce(function (s, d) {
+          return s + (Number(d.balance) || 0);
+        }, 0);
+        var totalPayment = debts.reduce(function (s, d) {
+          return s + (Number(d.monthlyPayment) || 0);
+        }, 0);
+        var pagadoPorDeuda = function pagadoPorDeuda(categoryId) {
+          return monthTx.filter(function (t) {
+            return t.type === "gasto" && t.category === categoryId;
+          });
+        };
+        return /*#__PURE__*/React.createElement("div", {
+          className: "space-y-4"
+        }, /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 4
+          }
+        }, "Agregar deuda"), /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 11,
+            color: COLORS.inkSoft,
+            marginBottom: 10
+          }
+        }, "Al crearla, se genera autom\xE1ticamente una categor\xEDa \"Pago: [nombre]\" en el grupo \"Pago de deudas\" \u2014 \xFAsala en Registro cuando pagues esta deuda, as\xED queda vinculado."), /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          placeholder: "Nombre (ej. Tarjeta Visa, Cr\xE9dito de libre inversi\xF3n)",
+          value: form.name,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              name: e.target.value
+            }));
+          },
+          className: "w-full mb-2 p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }), /*#__PURE__*/React.createElement("div", {
+          className: "grid grid-cols-2 gap-2 mb-2"
+        }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "Saldo total"), /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          value: form.balance,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              balance: e.target.value
+            }));
+          },
+          className: "w-full p-2 fig",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "Pago mensual"), /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          value: form.monthlyPayment,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              monthlyPayment: e.target.value
+            }));
+          },
+          className: "w-full p-2 fig",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }))), /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "Tasa de inter\xE9s anual (%, opcional)"), /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          value: form.interestRate,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              interestRate: e.target.value
+            }));
+          },
+          className: "w-full mb-2 p-2 fig",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }), /*#__PURE__*/React.createElement("label", {
+          className: "flex items-center gap-2 mb-3",
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft
+          }
+        }, /*#__PURE__*/React.createElement("input", {
+          type: "checkbox",
+          checked: form.payrollDeduction,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              payrollDeduction: e.target.checked
+            }));
+          }
+        }), "Se descuenta autom\xE1tico de mi n\xF3mina (libranza)"), /*#__PURE__*/React.createElement("button", {
+          onClick: submit,
+          style: {
+            background: COLORS.ink,
+            color: "#fff",
+            borderRadius: 10,
+            padding: "10px"
+          },
+          className: "w-full text-sm font-medium"
+        }, "Agregar deuda")), debts.length > 0 && /*#__PURE__*/React.createElement(Card, {
+          style: {
+            background: COLORS.dangerSoft,
+            border: "none"
+          }
+        }, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft
+          }
+        }, "Deuda total"), /*#__PURE__*/React.createElement("p", {
+          className: "fig",
+          style: {
+            fontSize: 22,
+            fontWeight: 600,
+            color: COLORS.danger
+          }
+        }, fmt(totalBalance)), /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 11,
+            color: COLORS.inkSoft,
+            marginTop: 2
+          },
+          className: "fig"
+        }, fmt(totalPayment), " / mes en pagos")), debts.length === 0 && /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft,
+            textAlign: "center"
+          }
+        }, "A\xFAn no registras deudas."), debts.map(function (d) {
+          var pagos = d.categoryId ? pagadoPorDeuda(d.categoryId) : [];
+          var pagado = pagos.reduce(function (s, t) {
+            return s + t.amount;
+          }, 0);
+          var abonoCapitalMes = pagos.reduce(function (s, t) {
+            return s + (t.debtPrincipalPortion || 0);
+          }, 0);
+          var interesMes = pagos.reduce(function (s, t) {
+            return s + (t.debtInterestPortion || 0);
+          }, 0);
+          return /*#__PURE__*/React.createElement(Card, {
+            key: d.id
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "flex justify-between items-start mb-2"
+          }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 14,
+              fontWeight: 600
+            }
+          }, d.name), d.payrollDeduction && /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 10,
+              color: COLORS.info
+            }
+          }, "Descuento autom\xE1tico de n\xF3mina"), d.categoryId && !d.payrollDeduction && pagado > 0 && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 10,
+              color: COLORS.inkSoft
+            },
+            className: "fig"
+          }, "Pagado este mes: ", fmt(pagado), " de ", fmt(d.monthlyPayment)), /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 10,
+              color: COLORS.primary
+            },
+            className: "fig"
+          }, "Abono a capital: ", fmt(abonoCapitalMes), " \xB7 Inter\xE9s: ", fmt(interesMes))), d.categoryId && !d.payrollDeduction && pagado === 0 && /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 10,
+              color: COLORS.inkSoft
+            }
+          }, "Registra el pago en \"Registro\" con la categor\xEDa \"Pago: ", d.name, "\"")), /*#__PURE__*/React.createElement("button", {
+            onClick: function onClick() {
+              return removeDebt(d.id);
+            },
+            style: {
+              color: COLORS.inkSoft
+            }
+          }, "\u2715")), /*#__PURE__*/React.createElement("div", {
+            className: "grid grid-cols-3 gap-2 mb-1"
+          }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+            style: {
+              fontSize: 9,
+              color: COLORS.inkSoft
+            }
+          }, "Saldo"), /*#__PURE__*/React.createElement(NumberField, {
+            value: d.balance,
+            onChange: function onChange(v) {
+              return updateDebt(d.id, {
+                balance: v
+              });
+            },
+            style: {
+              width: "100%"
+            }
+          })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+            style: {
+              fontSize: 9,
+              color: COLORS.inkSoft
+            }
+          }, "Pago/mes"), /*#__PURE__*/React.createElement(NumberField, {
+            value: d.monthlyPayment,
+            onChange: function onChange(v) {
+              return updateDebt(d.id, {
+                monthlyPayment: v
+              });
+            },
+            style: {
+              width: "100%"
+            }
+          })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+            style: {
+              fontSize: 9,
+              color: COLORS.inkSoft
+            }
+          }, "Inter\xE9s %"), /*#__PURE__*/React.createElement(NumberField, {
+            value: d.interestRate,
+            onChange: function onChange(v) {
+              return updateDebt(d.id, {
+                interestRate: v
+              });
+            },
+            style: {
+              width: "100%"
+            }
+          }))), /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 10,
+              color: COLORS.inkSoft,
+              marginBottom: 8
+            }
+          }, "\xBFEl saldo no cuadra con tu banco o extracto? Corr\xEDgelo directamente en el campo \"Saldo\"."), /*#__PURE__*/React.createElement("label", {
+            className: "flex items-center gap-2",
+            style: {
+              fontSize: 11,
+              color: COLORS.inkSoft
+            }
+          }, /*#__PURE__*/React.createElement("input", {
+            type: "checkbox",
+            checked: !!d.payrollDeduction,
+            onChange: function onChange(e) {
+              return updateDebt(d.id, {
+                payrollDeduction: e.target.checked
+              });
+            }
+          }), "Descuento autom\xE1tico de n\xF3mina"));
+        }));
+      }
+      function AnalisisView(_ref22) {
+        var income = _ref22.income,
+          categories = _ref22.categories,
+          budgets = _ref22.budgets,
+          gastoMap = _ref22.gastoMap,
+          monthTx = _ref22.monthTx,
+          mKey = _ref22.mKey,
+          totalGastosPresupuestados = _ref22.totalGastosPresupuestados,
+          totalDeudaMensual = _ref22.totalDeudaMensual,
+          totalDeudaNomina = _ref22.totalDeudaNomina,
+          totalAhorroPlaneado = _ref22.totalAhorroPlaneado,
+          disponible = _ref22.disponible,
+          debts = _ref22.debts;
+        var groupRows = categories.groups.map(function (g) {
+          var cats = categories.gasto.filter(function (c) {
+            return c.group === g.id;
+          });
+          var presupuestado = cats.reduce(function (s, c) {
+            var _budgets$c$id4;
+            return s + (Number((_budgets$c$id4 = budgets[c.id]) === null || _budgets$c$id4 === void 0 ? void 0 : _budgets$c$id4.amount) || 0);
+          }, 0);
+          var gastado = cats.reduce(function (s, c) {
+            return s + (gastoMap[c.id] || 0);
+          }, 0);
+          return {
+            label: g.label,
+            presupuestado: presupuestado,
+            gastado: gastado,
+            color: g.color
+          };
+        }).filter(function (r) {
+          return r.presupuestado > 0 || r.gastado > 0;
+        });
+        var rows = [].concat(_toConsumableArray(groupRows.map(function (r) {
+          return {
+            label: r.label,
+            value: r.presupuestado,
+            color: r.color
+          };
+        })), [{
+          label: "Deudas",
+          value: totalDeudaMensual,
+          color: COLORS.danger
+        }, {
+          label: "Ahorro planeado",
+          value: totalAhorroPlaneado,
+          color: COLORS.info
+        }, {
+          label: "Disponible",
+          value: Math.max(0, disponible),
+          color: COLORS.primary
+        }]);
+
+        // Quincenas
+        var gastoTx = monthTx.filter(function (t) {
+          return t.type === "gasto";
+        });
+        var actualQ1 = gastoTx.filter(function (t) {
+          return quincenaOfDate(t.date) === "q1";
+        }).reduce(function (s, t) {
+          return s + t.amount;
+        }, 0);
+        var actualQ2 = gastoTx.filter(function (t) {
+          return quincenaOfDate(t.date) === "q2";
+        }).reduce(function (s, t) {
+          return s + t.amount;
+        }, 0);
+        var budgetQ1 = categories.gasto.reduce(function (s, c) {
+          var _budgets$c$id5;
+          return s + (((_budgets$c$id5 = budgets[c.id]) === null || _budgets$c$id5 === void 0 ? void 0 : _budgets$c$id5.quincena) === "q1" ? Number(budgets[c.id].amount) || 0 : 0);
+        }, 0);
+        var budgetQ2 = categories.gasto.reduce(function (s, c) {
+          var _budgets$c$id6;
+          return s + (((_budgets$c$id6 = budgets[c.id]) === null || _budgets$c$id6 === void 0 ? void 0 : _budgets$c$id6.quincena) === "q2" ? Number(budgets[c.id].amount) || 0 : 0);
+        }, 0);
+        var budgetMes = categories.gasto.reduce(function (s, c) {
+          var _budgets$c$id7, _budgets$c$id8, _budgets$c$id9;
+          return s + (!((_budgets$c$id7 = budgets[c.id]) !== null && _budgets$c$id7 !== void 0 && _budgets$c$id7.quincena) || ((_budgets$c$id8 = budgets[c.id]) === null || _budgets$c$id8 === void 0 ? void 0 : _budgets$c$id8.quincena) === "mes" ? Number((_budgets$c$id9 = budgets[c.id]) === null || _budgets$c$id9 === void 0 ? void 0 : _budgets$c$id9.amount) || 0 : 0);
+        }, 0);
+        var debtsWithProjection = debts.filter(function (d) {
+          return Number(d.balance) > 0;
+        }).map(function (d) {
+          return _objectSpread(_objectSpread({}, d), {}, {
+            meses: mesesParaPagar(d.balance, d.interestRate, d.monthlyPayment),
+            interesTotal: interesTotalEstimado(d.balance, d.interestRate, d.monthlyPayment)
+          });
+        }).sort(function (a, b) {
+          return (Number(b.interestRate) || 0) - (Number(a.interestRate) || 0);
+        });
+        var prioridad = debtsWithProjection[0];
+        var simulacion = null;
+        if (prioridad && disponible > 0 && isFinite(prioridad.meses)) {
+          var pagoSimulado = Number(prioridad.monthlyPayment) + disponible;
+          var mesesSimulados = mesesParaPagar(prioridad.balance, prioridad.interestRate, pagoSimulado);
+          if (isFinite(mesesSimulados) && mesesSimulados < prioridad.meses) {
+            simulacion = {
+              antes: prioridad.meses,
+              despues: mesesSimulados,
+              ahorro: prioridad.meses - mesesSimulados
+            };
+          }
+        }
+        var debtPctOfIncome = income > 0 ? totalDeudaMensual / income : 0;
+        return /*#__PURE__*/React.createElement("div", {
+          className: "space-y-4"
+        }, /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 10
+          }
+        }, "C\xF3mo se reparte tu ingreso"), income === 0 ? /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft
+          }
+        }, "Registra tu ingreso mensual en la pesta\xF1a \"Ingreso\" para ver este an\xE1lisis.") : /*#__PURE__*/React.createElement(React.Fragment, null, rows.map(function (r, i) {
+          return r.value > 0 && /*#__PURE__*/React.createElement("div", {
+            key: i,
+            className: "mb-2"
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "flex justify-between",
+            style: {
+              fontSize: 12
+            }
+          }, /*#__PURE__*/React.createElement("span", null, r.label), /*#__PURE__*/React.createElement("span", {
+            className: "fig"
+          }, fmt(r.value), " \xB7 ", pct(r.value / income))), /*#__PURE__*/React.createElement("div", {
+            style: {
+              background: COLORS.paper,
+              borderRadius: 6,
+              height: 6,
+              overflow: "hidden"
+            }
+          }, /*#__PURE__*/React.createElement("div", {
+            style: {
+              width: "".concat(Math.min(100, r.value / income * 100), "%"),
+              background: r.color,
+              height: "100%"
+            }
+          })));
+        }), /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 11,
+            color: COLORS.inkSoft,
+            marginTop: 8
+          }
+        }, "Como referencia general (no es asesor\xEDa financiera personalizada): mantener las deudas por debajo del 35-40% del ingreso y destinar al menos 10-20% al ahorro suele dar m\xE1s margen de maniobra.", debtPctOfIncome > 0.4 && " Ahora mismo tus deudas están por encima de ese rango."), totalDeudaNomina > 0 && /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 11,
+            color: COLORS.inkSoft,
+            marginTop: 6
+          },
+          className: "fig"
+        }, "Adem\xE1s tienes ", fmt(totalDeudaNomina), "/mes en deudas con descuento autom\xE1tico de n\xF3mina \u2014 no se restan aqu\xED porque ya nunca llegaron a tu ingreso, pero s\xED cuentan en la proyecci\xF3n de abajo."))), /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 10
+          }
+        }, "Por quincena"), [["Quincena 1", budgetQ1, actualQ1], ["Quincena 2", budgetQ2, actualQ2]].map(function (_ref23, i) {
+          var _ref24 = _slicedToArray(_ref23, 3),
+            label = _ref24[0],
+            presupuestado = _ref24[1],
+            gastado = _ref24[2];
+          return /*#__PURE__*/React.createElement("div", {
+            key: i,
+            className: "mb-2"
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "flex justify-between",
+            style: {
+              fontSize: 12
+            }
+          }, /*#__PURE__*/React.createElement("span", null, label), /*#__PURE__*/React.createElement("span", {
+            className: "fig"
+          }, fmt(gastado), " de ", fmt(presupuestado))), /*#__PURE__*/React.createElement("div", {
+            style: {
+              background: COLORS.paper,
+              borderRadius: 6,
+              height: 6,
+              overflow: "hidden"
+            }
+          }, /*#__PURE__*/React.createElement("div", {
+            style: {
+              width: "".concat(presupuestado > 0 ? Math.min(100, gastado / presupuestado * 100) : 0, "%"),
+              background: gastado > presupuestado && presupuestado > 0 ? COLORS.danger : COLORS.gold,
+              height: "100%"
+            }
+          })));
+        }), budgetMes > 0 && /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft,
+            marginTop: 4
+          },
+          className: "fig"
+        }, "+ ", fmt(budgetMes), " presupuestados sin quincena espec\xEDfica")), /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 10
+          }
+        }, "Proyecci\xF3n de tus deudas"), debtsWithProjection.length === 0 && /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft
+          }
+        }, "Registra tus deudas en la pesta\xF1a \"Deudas\" para ver la proyecci\xF3n."), debtsWithProjection.map(function (d) {
+          return /*#__PURE__*/React.createElement("div", {
+            key: d.id,
+            className: "mb-3 pb-3",
+            style: {
+              borderBottom: "1px solid ".concat(COLORS.line)
+            }
+          }, /*#__PURE__*/React.createElement("span", {
+            style: {
+              fontSize: 13,
+              fontWeight: prioridad && d.id === prioridad.id ? 600 : 400
+            }
+          }, d.name, " ", prioridad && d.id === prioridad.id && /*#__PURE__*/React.createElement("span", {
+            style: {
+              color: COLORS.gold,
+              fontSize: 10
+            }
+          }, "\xB7 prioridad sugerida")), /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 11,
+              color: COLORS.inkSoft
+            },
+            className: "fig"
+          }, isFinite(d.meses) ? "".concat(d.meses, " meses para pagarla al ritmo actual") : "el pago actual no alcanza a cubrir el interés", isFinite(d.interesTotal) && " \xB7 ~".concat(fmt(d.interesTotal), " en inter\xE9s total")));
+        }), debtsWithProjection.length > 1 && /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 11,
+            color: COLORS.inkSoft
+          }
+        }, "Sugerencia (m\xE9todo avalancha): paga el m\xEDnimo en todas tus deudas y dirige cualquier dinero extra a la de mayor inter\xE9s.")), simulacion && /*#__PURE__*/React.createElement(Card, {
+          style: {
+            background: COLORS.goldSoft,
+            border: "none"
+          }
+        }, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft,
+            marginBottom: 4
+          }
+        }, "Si destinas tu disponible a \"", prioridad.name, "\""), /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13
+          }
+        }, "Pasar\xEDas de ", /*#__PURE__*/React.createElement("span", {
+          className: "fig",
+          style: {
+            fontWeight: 600
+          }
+        }, simulacion.antes, " meses"), " a", " ", /*#__PURE__*/React.createElement("span", {
+          className: "fig",
+          style: {
+            fontWeight: 600,
+            color: COLORS.primary
+          }
+        }, simulacion.despues, " meses"), " \u2014 te ahorrar\xEDas aproximadamente", " ", /*#__PURE__*/React.createElement("span", {
+          className: "fig",
+          style: {
+            fontWeight: 600
+          }
+        }, simulacion.ahorro, " ", simulacion.ahorro === 1 ? "mes" : "meses"), ".")));
+      }
+
+      // ---------- Bolsillos de ahorro (Metas) ----------
+      function Metas(_ref25) {
+        var goals = _ref25.goals,
+          mKey = _ref25.mKey,
+          onAdd = _ref25.onAdd,
+          onContribute = _ref25.onContribute,
+          onWithdraw = _ref25.onWithdraw,
+          onSetSaved = _ref25.onSetSaved,
+          onSetRealBalance = _ref25.onSetRealBalance,
+          onRemove = _ref25.onRemove;
+        var _useState43 = useState({
+            name: "",
+            banco: "",
+            saved: "",
+            target: "",
+            monthlyTarget: ""
+          }),
+          _useState44 = _slicedToArray(_useState43, 2),
+          form = _useState44[0],
+          setForm = _useState44[1];
+        var _useState45 = useState({}),
+          _useState46 = _slicedToArray(_useState45, 2),
+          aporte = _useState46[0],
+          setAporte = _useState46[1];
+        var _useState47 = useState({}),
+          _useState48 = _slicedToArray(_useState47, 2),
+          retiro = _useState48[0],
+          setRetiro = _useState48[1];
+        var _useState49 = useState({}),
+          _useState50 = _slicedToArray(_useState49, 2),
+          conciliar = _useState50[0],
+          setConciliar = _useState50[1];
+        var _useState51 = useState({}),
+          _useState52 = _slicedToArray(_useState51, 2),
+          editandoValor = _useState52[0],
+          setEditandoValor = _useState52[1];
+        var submit = function submit() {
+          if (!form.name) return;
+          onAdd({
+            name: form.name,
+            banco: form.banco,
+            saved: Number(form.saved) || 0,
+            target: Number(form.target) || 0,
+            monthlyTarget: Number(form.monthlyTarget) || 0
+          });
+          setForm({
+            name: "",
+            banco: "",
+            saved: "",
+            target: "",
+            monthlyTarget: ""
+          });
+        };
+        return /*#__PURE__*/React.createElement("div", {
+          className: "space-y-4 pt-2"
+        }, /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 8
+          }
+        }, "Nuevo bolsillo de ahorro"), /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          placeholder: "Ej. Fondo de emergencia",
+          value: form.name,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              name: e.target.value
+            }));
+          },
+          className: "w-full mb-2 p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }), /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          placeholder: "Banco (opcional, ej. Nu Bank cajita)",
+          value: form.banco,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              banco: e.target.value
+            }));
+          },
+          className: "w-full mb-2 p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }), /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "Valor actual (si ya tienes algo ahorrado ah\xED)"), /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          placeholder: "0",
+          value: form.saved,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              saved: e.target.value
+            }));
+          },
+          className: "w-full mb-2 p-2 fig",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }), /*#__PURE__*/React.createElement("div", {
+          className: "grid grid-cols-2 gap-2 mb-3"
+        }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "Meta total (opcional)"), /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          value: form.target,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              target: e.target.value
+            }));
+          },
+          className: "w-full p-2 fig",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "Aporte mensual planeado"), /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          value: form.monthlyTarget,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              monthlyTarget: e.target.value
+            }));
+          },
+          className: "w-full p-2 fig",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }))), /*#__PURE__*/React.createElement("button", {
+          onClick: submit,
+          style: {
+            background: COLORS.ink,
+            color: "#fff",
+            borderRadius: 10,
+            padding: "10px"
+          },
+          className: "w-full text-sm font-medium"
+        }, "Crear bolsillo")), goals.length === 0 && /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft,
+            textAlign: "center"
+          }
+        }, "A\xFAn no tienes bolsillos de ahorro."), goals.map(function (g) {
+          var _g$realBalance;
+          var p = g.target > 0 ? Math.min(100, g.saved / g.target * 100) : null;
+          var aportadoMes = (g.movements || []).filter(function (m) {
+            return m.type === "aporte" && m.date.slice(0, 7) === mKey;
+          }).reduce(function (s, m) {
+            return s + m.amount;
+          }, 0);
+          var pMes = g.monthlyTarget > 0 ? Math.min(100, aportadoMes / g.monthlyTarget * 100) : null;
+          var conciliando = conciliar[g.id];
+          var diff = g.realBalance != null ? g.realBalance - g.saved : null;
+          var editandoEsteValor = editandoValor[g.id];
+          return /*#__PURE__*/React.createElement(Card, {
+            key: g.id
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "flex justify-between items-start"
+          }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 14,
+              fontWeight: 600
+            }
+          }, g.name), g.banco && /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 10,
+              color: COLORS.inkSoft
+            }
+          }, g.banco), editandoEsteValor ? /*#__PURE__*/React.createElement("div", {
+            className: "flex items-center gap-2 mt-1"
+          }, /*#__PURE__*/React.createElement(NumberField, {
+            value: g.saved,
+            onChange: function onChange(v) {
+              return onSetSaved(g.id, v);
+            },
+            style: {
+              width: 130
+            }
+          }), /*#__PURE__*/React.createElement("button", {
+            onClick: function onClick() {
+              return setEditandoValor(_objectSpread(_objectSpread({}, editandoValor), {}, _defineProperty({}, g.id, false)));
+            },
+            style: {
+              fontSize: 11,
+              color: COLORS.primary
+            }
+          }, "Listo")) : /*#__PURE__*/React.createElement("p", {
+            className: "fig",
+            style: {
+              fontSize: 12,
+              color: COLORS.inkSoft
+            }
+          }, fmt(g.saved), g.target > 0 && " de ".concat(fmt(g.target)), " ", /*#__PURE__*/React.createElement("span", {
+            onClick: function onClick() {
+              return setEditandoValor(_objectSpread(_objectSpread({}, editandoValor), {}, _defineProperty({}, g.id, true)));
+            },
+            style: {
+              color: COLORS.primary,
+              cursor: "pointer",
+              fontFamily: "Inter"
+            }
+          }, "editar valor actual"))), /*#__PURE__*/React.createElement("button", {
+            onClick: function onClick() {
+              return onRemove(g.id);
+            },
+            style: {
+              color: COLORS.inkSoft
+            }
+          }, "\u2715")), p !== null && /*#__PURE__*/React.createElement("div", {
+            style: {
+              background: COLORS.paper,
+              borderRadius: 6,
+              height: 8,
+              overflow: "hidden",
+              margin: "8px 0"
+            }
+          }, /*#__PURE__*/React.createElement("div", {
+            style: {
+              width: "".concat(p, "%"),
+              background: COLORS.gold,
+              height: "100%"
+            }
+          })), g.monthlyTarget > 0 && /*#__PURE__*/React.createElement("div", {
+            className: "mb-2",
+            style: {
+              background: COLORS.infoSoft,
+              borderRadius: 8,
+              padding: 8
+            }
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "flex justify-between",
+            style: {
+              fontSize: 11
+            }
+          }, /*#__PURE__*/React.createElement("span", null, "Este mes"), /*#__PURE__*/React.createElement("span", {
+            className: "fig"
+          }, fmt(aportadoMes), " de ", fmt(g.monthlyTarget))), /*#__PURE__*/React.createElement("div", {
+            style: {
+              background: "#fff",
+              borderRadius: 6,
+              height: 5,
+              overflow: "hidden",
+              marginTop: 4
+            }
+          }, /*#__PURE__*/React.createElement("div", {
+            style: {
+              width: "".concat(pMes, "%"),
+              background: COLORS.info,
+              height: "100%"
+            }
+          }))), /*#__PURE__*/React.createElement("div", {
+            className: "flex gap-2 mb-2"
+          }, /*#__PURE__*/React.createElement("input", {
+            type: "number",
+            inputMode: "decimal",
+            placeholder: "Aporte",
+            value: aporte[g.id] || "",
+            onChange: function onChange(e) {
+              return setAporte(_objectSpread(_objectSpread({}, aporte), {}, _defineProperty({}, g.id, e.target.value)));
+            },
+            className: "flex-1 p-2 fig",
+            style: {
+              borderRadius: 10,
+              border: "1px solid ".concat(COLORS.line),
+              fontSize: 13
+            }
+          }), /*#__PURE__*/React.createElement("button", {
+            onClick: function onClick() {
+              var v = Number(aporte[g.id]);
+              if (v > 0) {
+                onContribute(g.id, v);
+                setAporte(_objectSpread(_objectSpread({}, aporte), {}, _defineProperty({}, g.id, "")));
+              }
+            },
+            style: {
+              background: COLORS.goldSoft,
+              color: COLORS.gold,
+              borderRadius: 10,
+              padding: "0 14px"
+            },
+            className: "text-sm font-medium"
+          }, "Aportar")), /*#__PURE__*/React.createElement("div", {
+            className: "flex gap-2 mb-2"
+          }, /*#__PURE__*/React.createElement("input", {
+            type: "number",
+            inputMode: "decimal",
+            placeholder: "Retiro",
+            value: retiro[g.id] || "",
+            onChange: function onChange(e) {
+              return setRetiro(_objectSpread(_objectSpread({}, retiro), {}, _defineProperty({}, g.id, e.target.value)));
+            },
+            className: "flex-1 p-2 fig",
+            style: {
+              borderRadius: 10,
+              border: "1px solid ".concat(COLORS.line),
+              fontSize: 13
+            }
+          }), /*#__PURE__*/React.createElement("button", {
+            onClick: function onClick() {
+              var v = Number(retiro[g.id]);
+              if (v > 0 && v <= g.saved) {
+                onWithdraw(g.id, v);
+                setRetiro(_objectSpread(_objectSpread({}, retiro), {}, _defineProperty({}, g.id, "")));
+              }
+            },
+            style: {
+              background: COLORS.dangerSoft,
+              color: COLORS.danger,
+              borderRadius: 10,
+              padding: "0 14px"
+            },
+            className: "text-sm font-medium"
+          }, "Retirar")), !conciliando ? /*#__PURE__*/React.createElement("button", {
+            onClick: function onClick() {
+              return setConciliar(_objectSpread(_objectSpread({}, conciliar), {}, _defineProperty({}, g.id, true)));
+            },
+            style: {
+              fontSize: 11,
+              color: COLORS.inkSoft
+            }
+          }, "Conciliar con el banco \u2192") : /*#__PURE__*/React.createElement("div", {
+            style: {
+              borderTop: "1px solid ".concat(COLORS.line),
+              paddingTop: 8,
+              marginTop: 4
+            }
+          }, /*#__PURE__*/React.createElement("label", {
+            style: {
+              fontSize: 10,
+              color: COLORS.inkSoft
+            }
+          }, "Saldo real en el banco"), /*#__PURE__*/React.createElement("input", {
+            type: "number",
+            inputMode: "decimal",
+            defaultValue: (_g$realBalance = g.realBalance) !== null && _g$realBalance !== void 0 ? _g$realBalance : "",
+            placeholder: "0",
+            onBlur: function onBlur(e) {
+              return onSetRealBalance(g.id, e.target.value === "" ? null : Number(e.target.value));
+            },
+            className: "w-full p-2 fig",
+            style: {
+              borderRadius: 8,
+              border: "1px solid ".concat(COLORS.line),
+              fontSize: 13
+            }
+          }), diff !== null && diff !== 0 && /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 11,
+              color: diff > 0 ? COLORS.primary : COLORS.danger,
+              marginTop: 6
+            },
+            className: "fig"
+          }, diff > 0 ? "Sobra ".concat(fmt(diff), " (hay m\xE1s en el banco de lo registrado)") : "Falta ".concat(fmt(Math.abs(diff)), " (hay m\xE1s registrado de lo que hay en el banco)")), diff === 0 && /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 11,
+              color: COLORS.primary,
+              marginTop: 6
+            }
+          }, "Cuadrado \u2713")));
+        }));
+      }
+
+      // ---------- Auth ----------
+      function AuthScreen() {
+        var _useState53 = useState("signin"),
+          _useState54 = _slicedToArray(_useState53, 2),
+          mode = _useState54[0],
+          setMode = _useState54[1];
+        var _useState55 = useState(""),
+          _useState56 = _slicedToArray(_useState55, 2),
+          email = _useState56[0],
+          setEmail = _useState56[1];
+        var _useState57 = useState(""),
+          _useState58 = _slicedToArray(_useState57, 2),
+          password = _useState58[0],
+          setPassword = _useState58[1];
+        var _useState59 = useState(""),
+          _useState60 = _slicedToArray(_useState59, 2),
+          error = _useState60[0],
+          setError = _useState60[1];
+        var _useState61 = useState(false),
+          _useState62 = _slicedToArray(_useState61, 2),
+          loading = _useState62[0],
+          setLoading = _useState62[1];
+        var submit = /*#__PURE__*/function () {
+          var _submit = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
+            var fn, _yield$fn, error;
+            return _regenerator().w(function (_context4) {
+              while (1) switch (_context4.n) {
+                case 0:
+                  setError("");
+                  setLoading(true);
+                  fn = mode === "signin" ? supabaseClient.auth.signInWithPassword : supabaseClient.auth.signUp;
+                  _context4.n = 1;
+                  return fn({
+                    email: email,
+                    password: password
+                  });
+                case 1:
+                  _yield$fn = _context4.v;
+                  error = _yield$fn.error;
+                  setLoading(false);
+                  if (error) setError(error.message);else if (mode === "signup") setError("Cuenta creada. Revisa tu correo si tu proyecto pide confirmación, o inicia sesión.");
+                case 2:
+                  return _context4.a(2);
+              }
+            }, _callee4);
+          }));
+          function submit() {
+            return _submit.apply(this, arguments);
+          }
+          return submit;
+        }();
+        return /*#__PURE__*/React.createElement("div", {
+          style: {
+            background: COLORS.paper,
+            minHeight: "100vh"
+          },
+          className: "flex items-center justify-center p-6"
+        }, /*#__PURE__*/React.createElement("div", {
+          style: {
+            background: COLORS.surface,
+            border: "1px solid ".concat(COLORS.line),
+            borderRadius: 16
+          },
+          className: "w-full max-w-sm p-6"
+        }, /*#__PURE__*/React.createElement("h1", {
+          className: "display",
+          style: {
+            fontSize: 22,
+            fontWeight: 600,
+            color: COLORS.ink
+          }
+        }, "Mis Finanzas"), /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft,
+            marginTop: 4,
+            marginBottom: 16
+          }
+        }, mode === "signin" ? "Inicia sesión para ver tus datos en todos tus dispositivos." : "Crea tu cuenta para empezar."), /*#__PURE__*/React.createElement("input", {
+          type: "email",
+          placeholder: "Correo",
+          value: email,
+          onChange: function onChange(e) {
+            return setEmail(e.target.value);
+          },
+          className: "w-full mb-2 p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }), /*#__PURE__*/React.createElement("input", {
+          type: "password",
+          placeholder: "Contrase\xF1a",
+          value: password,
+          onChange: function onChange(e) {
+            return setPassword(e.target.value);
+          },
+          className: "w-full mb-3 p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }), error && /*#__PURE__*/React.createElement("p", {
+          style: {
+            color: COLORS.danger,
+            fontSize: 12,
+            marginBottom: 8
+          }
+        }, error), /*#__PURE__*/React.createElement("button", {
+          onClick: submit,
+          disabled: loading,
+          style: {
+            background: COLORS.ink,
+            color: "#fff",
+            borderRadius: 10,
+            padding: "10px"
+          },
+          className: "w-full text-sm font-medium"
+        }, loading ? "Un momento…" : mode === "signin" ? "Iniciar sesión" : "Crear cuenta"), /*#__PURE__*/React.createElement("button", {
+          onClick: function onClick() {
+            return setMode(mode === "signin" ? "signup" : "signin");
+          },
+          style: {
+            color: COLORS.primary,
+            fontSize: 12,
+            marginTop: 12
+          },
+          className: "w-full text-center"
+        }, mode === "signin" ? "¿No tienes cuenta? Regístrate" : "¿Ya tienes cuenta? Inicia sesión")));
+      }
+
+      // ---------- Raíz: maneja sesión ----------
+      function Root() {
+        var _useState63 = useState(undefined),
+          _useState64 = _slicedToArray(_useState63, 2),
+          session = _useState64[0],
+          setSession = _useState64[1];
+        useEffect(function () {
+          supabaseClient.auth.getSession().then(function (_ref26) {
+            var data = _ref26.data;
+            return setSession(data.session);
+          });
+          var _supabaseClient$auth$ = supabaseClient.auth.onAuthStateChange(function (_e, s) {
+              return setSession(s);
+            }),
+            sub = _supabaseClient$auth$.data;
+          return function () {
+            return sub.subscription.unsubscribe();
+          };
+        }, []);
+        if (session === undefined) return /*#__PURE__*/React.createElement("div", {
+          style: {
+            background: "#EEF1EC"
+          },
+          className: "min-h-screen"
+        });
+        return session ? /*#__PURE__*/React.createElement(FinanzasApp, {
+          session: session
+        }) : /*#__PURE__*/React.createElement(AuthScreen, null);
+      }
+      ReactDOM.createRoot(document.getElementById("root")).render(/*#__PURE__*/React.createElement(Root, null));
+    </script>
+  </body>
+</html>
