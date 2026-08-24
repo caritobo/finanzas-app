@@ -273,6 +273,7 @@
         budgets: {},
         goals: [],
         debts: [],
+        accounts: [],
         categories: DEFAULT_CATEGORIES,
         plan: {
           incomeMonthly: 0
@@ -533,9 +534,22 @@
           }
           return out;
         }, [data, cursor]);
+        if (loading || !data) {
+          return /*#__PURE__*/React.createElement("div", {
+            style: {
+              background: COLORS.paper
+            },
+            className: "min-h-screen flex items-center justify-center"
+          }, /*#__PURE__*/React.createElement("p", {
+            style: {
+              color: COLORS.inkSoft
+            }
+          }, "Cargando tus finanzas\u2026"));
+        }
         var applyTxEffects = function applyTxEffects(base, tx) {
           var goals = base.goals;
           var debts = base.debts;
+          var accounts = base.accounts || [];
           var extra = {};
           if (tx.type === "gasto" && tx.fromGoal) {
             var goal = goals.find(function (g) {
@@ -609,15 +623,59 @@
               });
             }
           }
+          if (tx.type === "gasto" && tx.fromAccount) {
+            var account = accounts.find(function (a) {
+              return a.id === tx.fromAccount;
+            });
+            if (account) {
+              var subAmount = Number(tx.fromAccountAmount) || tx.amount;
+              var _mv2 = {
+                id: uid(),
+                type: "gasto",
+                amount: subAmount,
+                date: tx.date,
+                txId: tx.id
+              };
+              accounts = accounts.map(function (a) {
+                return a.id === tx.fromAccount ? _objectSpread(_objectSpread({}, a), {}, {
+                  balance: a.balance - subAmount,
+                  movements: [].concat(_toConsumableArray(a.movements || []), [_mv2])
+                }) : a;
+              });
+            }
+          }
+          if (tx.type === "ingreso" && tx.toAccount) {
+            var _account = accounts.find(function (a) {
+              return a.id === tx.toAccount;
+            });
+            if (_account) {
+              var _addAmount = Number(tx.toAccountAmount) || tx.amount;
+              var _mv3 = {
+                id: uid(),
+                type: "ingreso",
+                amount: _addAmount,
+                date: tx.date,
+                txId: tx.id
+              };
+              accounts = accounts.map(function (a) {
+                return a.id === tx.toAccount ? _objectSpread(_objectSpread({}, a), {}, {
+                  balance: a.balance + _addAmount,
+                  movements: [].concat(_toConsumableArray(a.movements || []), [_mv3])
+                }) : a;
+              });
+            }
+          }
           return {
             goals: goals,
             debts: debts,
+            accounts: accounts,
             extra: extra
           };
         };
         var reverseTxEffects = function reverseTxEffects(base, tx) {
           var goals = base.goals;
           var debts = base.debts;
+          var accounts = base.accounts || [];
           if (tx.fromGoal) {
             goals = goals.map(function (g) {
               return g.id === tx.fromGoal ? _objectSpread(_objectSpread({}, g), {}, {
@@ -661,23 +719,34 @@
               });
             }
           }
+          if (tx.fromAccount) {
+            var subAmount = Number(tx.fromAccountAmount) || tx.amount;
+            accounts = accounts.map(function (a) {
+              return a.id === tx.fromAccount ? _objectSpread(_objectSpread({}, a), {}, {
+                balance: a.balance + subAmount,
+                movements: (a.movements || []).filter(function (m) {
+                  return m.txId !== tx.id;
+                })
+              }) : a;
+            });
+          }
+          if (tx.toAccount) {
+            var _addAmount2 = Number(tx.toAccountAmount) || tx.amount;
+            accounts = accounts.map(function (a) {
+              return a.id === tx.toAccount ? _objectSpread(_objectSpread({}, a), {}, {
+                balance: a.balance - _addAmount2,
+                movements: (a.movements || []).filter(function (m) {
+                  return m.txId !== tx.id;
+                })
+              }) : a;
+            });
+          }
           return {
             goals: goals,
-            debts: debts
+            debts: debts,
+            accounts: accounts
           };
         };
-        if (loading || !data) {
-          return /*#__PURE__*/React.createElement("div", {
-            style: {
-              background: COLORS.paper
-            },
-            className: "min-h-screen flex items-center justify-center"
-          }, /*#__PURE__*/React.createElement("p", {
-            style: {
-              color: COLORS.inkSoft
-            }
-          }, "Cargando tus finanzas\u2026"));
-        }
         var addTransaction = function addTransaction(tx) {
           var id = uid();
           var fullTx = _objectSpread(_objectSpread({}, tx), {}, {
@@ -686,10 +755,12 @@
           var _applyTxEffects = applyTxEffects(data, fullTx),
             goals = _applyTxEffects.goals,
             debts = _applyTxEffects.debts,
+            accounts = _applyTxEffects.accounts,
             extra = _applyTxEffects.extra;
           persist(_objectSpread(_objectSpread({}, data), {}, {
             goals: goals,
             debts: debts,
+            accounts: accounts,
             transactions: [].concat(_toConsumableArray(data.transactions), [_objectSpread(_objectSpread({}, fullTx), extra)])
           }));
         };
@@ -704,10 +775,12 @@
           });
           var _applyTxEffects2 = applyTxEffects(_objectSpread(_objectSpread({}, data), {}, {
               goals: reversed.goals,
-              debts: reversed.debts
+              debts: reversed.debts,
+              accounts: reversed.accounts
             }), newTx),
             goals = _applyTxEffects2.goals,
             debts = _applyTxEffects2.debts,
+            accounts = _applyTxEffects2.accounts,
             extra = _applyTxEffects2.extra;
           var transactions = data.transactions.map(function (t) {
             return t.id === id ? _objectSpread(_objectSpread({}, newTx), extra) : t;
@@ -715,6 +788,7 @@
           persist(_objectSpread(_objectSpread({}, data), {}, {
             goals: goals,
             debts: debts,
+            accounts: accounts,
             transactions: transactions
           }));
         };
@@ -732,10 +806,12 @@
           }
           var _reverseTxEffects = reverseTxEffects(data, tx),
             goals = _reverseTxEffects.goals,
-            debts = _reverseTxEffects.debts;
+            debts = _reverseTxEffects.debts,
+            accounts = _reverseTxEffects.accounts;
           persist(_objectSpread(_objectSpread({}, data), {}, {
             goals: goals,
             debts: debts,
+            accounts: accounts,
             transactions: data.transactions.filter(function (t) {
               return t.id !== id;
             })
@@ -822,6 +898,40 @@
           return persist(_objectSpread(_objectSpread({}, data), {}, {
             goals: data.goals.filter(function (g) {
               return g.id !== id;
+            })
+          }));
+        };
+        var addAccount = function addAccount(account) {
+          return persist(_objectSpread(_objectSpread({}, data), {}, {
+            accounts: [].concat(_toConsumableArray(data.accounts || []), [_objectSpread(_objectSpread({}, account), {}, {
+              id: uid(),
+              balance: Number(account.balance) || 0,
+              movements: []
+            })])
+          }));
+        };
+        var renameAccount = function renameAccount(id, name) {
+          return persist(_objectSpread(_objectSpread({}, data), {}, {
+            accounts: (data.accounts || []).map(function (a) {
+              return a.id === id ? _objectSpread(_objectSpread({}, a), {}, {
+                name: name
+              }) : a;
+            })
+          }));
+        };
+        var setAccountBalance = function setAccountBalance(id, value) {
+          return persist(_objectSpread(_objectSpread({}, data), {}, {
+            accounts: (data.accounts || []).map(function (a) {
+              return a.id === id ? _objectSpread(_objectSpread({}, a), {}, {
+                balance: value
+              }) : a;
+            })
+          }));
+        };
+        var removeAccount = function removeAccount(id) {
+          return persist(_objectSpread(_objectSpread({}, data), {}, {
+            accounts: (data.accounts || []).filter(function (a) {
+              return a.id !== id;
             })
           }));
         };
@@ -978,7 +1088,7 @@
             background: COLORS.paper,
             color: COLORS.ink
           },
-          className: "min-h-screen pb-24"
+          className: "min-h-screen pb-32"
         }, /*#__PURE__*/React.createElement("header", {
           className: "px-5 pt-6 pb-4 sticky top-0 z-10",
           style: {
@@ -1045,17 +1155,22 @@
           monthTx: monthTx,
           goals: data.goals,
           debts: data.debts,
+          accounts: data.accounts,
           categories: categories,
           onDelete: removeTransaction,
           onEdit: setEditingTx,
           onGoToMetas: function onGoToMetas() {
             return setTab("metas");
+          },
+          onGoToCuentas: function onGoToCuentas() {
+            return setTab("plan");
           }
         }), tab === "movimientos" && /*#__PURE__*/React.createElement(Movimientos, {
           monthTx: monthTx,
           categories: categories,
           goals: data.goals,
           debts: data.debts,
+          accounts: data.accounts,
           onAdd: addTransaction,
           onDelete: removeTransaction,
           onEdit: setEditingTx
@@ -1076,6 +1191,10 @@
           addGroup: addGroup,
           renameGroup: renameGroup,
           removeGroup: removeGroup,
+          addAccount: addAccount,
+          renameAccount: renameAccount,
+          setAccountBalance: setAccountBalance,
+          removeAccount: removeAccount,
           onGoToMetas: function onGoToMetas() {
             return setTab("metas");
           }
@@ -1093,6 +1212,7 @@
           categories: categories,
           goals: data.goals,
           debts: data.debts,
+          accounts: data.accounts,
           onClose: function onClose() {
             return setShowForm(false);
           },
@@ -1104,6 +1224,7 @@
           categories: categories,
           goals: data.goals,
           debts: data.debts,
+          accounts: data.accounts,
           editTx: editingTx,
           onClose: function onClose() {
             return setEditingTx(null);
@@ -1113,10 +1234,11 @@
             setEditingTx(null);
           }
         }), /*#__PURE__*/React.createElement("nav", {
-          className: "fixed bottom-0 left-0 right-0 flex justify-around items-center py-2 z-20",
+          className: "fixed left-0 right-0 flex justify-around items-center py-2 z-20",
           style: {
             background: COLORS.surface,
-            borderTop: "1px solid ".concat(COLORS.line)
+            borderTop: "1px solid ".concat(COLORS.line),
+            bottom: "44px"
           }
         }, /*#__PURE__*/React.createElement(NavBtn, {
           active: tab === "resumen",
@@ -1380,10 +1502,12 @@
           monthTx = _ref1.monthTx,
           goals = _ref1.goals,
           debts = _ref1.debts,
+          accounts = _ref1.accounts,
           categories = _ref1.categories,
           onDelete = _ref1.onDelete,
           onEdit = _ref1.onEdit,
-          onGoToMetas = _ref1.onGoToMetas;
+          onGoToMetas = _ref1.onGoToMetas,
+          onGoToCuentas = _ref1.onGoToCuentas;
         var positivo = flujo >= 0;
         var maxTend = Math.max.apply(Math, [1].concat(_toConsumableArray(tendencia.map(function (t) {
           return Math.abs(t.flujo);
@@ -1459,7 +1583,55 @@
           }
         }, "No incluye ", /*#__PURE__*/React.createElement("span", {
           className: "fig"
-        }, fmt(gastosCredito)), " pagados con tarjeta de cr\xE9dito.")), goals && goals.length > 0 && /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("div", {
+        }, fmt(gastosCredito)), " pagados con tarjeta de cr\xE9dito.")), accounts && accounts.length > 0 && /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("div", {
+          className: "flex items-center justify-between mb-1"
+        }, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600
+          }
+        }, "Tus cuentas"), /*#__PURE__*/React.createElement("button", {
+          onClick: onGoToCuentas,
+          style: {
+            fontSize: 11,
+            color: COLORS.primary
+          }
+        }, "Ver cuentas \u2192")), /*#__PURE__*/React.createElement("div", {
+          className: "grid grid-cols-2 gap-2 mt-2"
+        }, accounts.map(function (a) {
+          var gastadoCuenta = monthTx.filter(function (t) {
+            return t.type === "gasto" && t.fromAccount === a.id;
+          }).reduce(function (s, t) {
+            return s + (Number(t.fromAccountAmount) || t.amount);
+          }, 0);
+          return /*#__PURE__*/React.createElement("div", {
+            key: a.id,
+            style: {
+              background: COLORS.infoSoft,
+              borderRadius: 10,
+              padding: 8
+            }
+          }, /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 11,
+              fontWeight: 600
+            },
+            className: "truncate"
+          }, a.name), /*#__PURE__*/React.createElement("p", {
+            className: "fig",
+            style: {
+              fontSize: 13,
+              color: COLORS.info
+            }
+          }, a.currency === "USD" ? fmtUSD(a.balance) : fmt(a.balance)), gastadoCuenta > 0 && /*#__PURE__*/React.createElement("p", {
+            className: "fig",
+            style: {
+              fontSize: 9,
+              color: COLORS.inkSoft,
+              marginTop: 2
+            }
+          }, "Gastaste ", a.currency === "USD" ? fmtUSD(gastadoCuenta) : fmt(gastadoCuenta)));
+        }))), goals && goals.length > 0 && /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("div", {
           className: "flex items-center justify-between mb-1"
         }, /*#__PURE__*/React.createElement("p", {
           style: {
@@ -1700,6 +1872,7 @@
           categories: categories,
           goals: goals,
           debts: debts,
+          accounts: accounts,
           onDelete: onDelete,
           onEdit: onEdit
         })));
@@ -1709,10 +1882,11 @@
           categories = _ref10.categories,
           goals = _ref10.goals,
           debts = _ref10.debts,
+          accounts = _ref10.accounts,
           onDelete = _ref10.onDelete,
           onEdit = _ref10.onEdit;
         return /*#__PURE__*/React.createElement("div", null, tx.map(function (t) {
-          var _goals$find, _goals$find2, _debts$find;
+          var _goals$find, _goals$find2, _debts$find, _accounts$find, _accounts$find2;
           var cat = catById(categories, t.category);
           var groupLabel = cat.group ? groupInfo(cat.group, categories.groups).label : null;
           var fromGoalName = t.fromGoal && goals ? (_goals$find = goals.find(function (g) {
@@ -1724,6 +1898,12 @@
           var chargedDebtName = t.chargedToDebt && debts ? (_debts$find = debts.find(function (d) {
             return d.id === t.chargedToDebt;
           })) === null || _debts$find === void 0 ? void 0 : _debts$find.name : null;
+          var toAccountName = t.toAccount && accounts ? (_accounts$find = accounts.find(function (a) {
+            return a.id === t.toAccount;
+          })) === null || _accounts$find === void 0 ? void 0 : _accounts$find.name : null;
+          var fromAccountName = t.fromAccount && accounts ? (_accounts$find2 = accounts.find(function (a) {
+            return a.id === t.fromAccount;
+          })) === null || _accounts$find2 === void 0 ? void 0 : _accounts$find2.name : null;
           return /*#__PURE__*/React.createElement("div", {
             key: t.id,
             className: "flex items-center justify-between py-2",
@@ -1749,7 +1929,17 @@
               fontSize: 9,
               color: COLORS.danger
             }
-          }, " \xB7 compra a cr\xE9dito: ", chargedDebtName || "tarjeta", t.chargedInstallments ? " (".concat(t.chargedInstallments, " cuotas)") : "")), /*#__PURE__*/React.createElement("p", {
+          }, " \xB7 compra a cr\xE9dito: ", chargedDebtName || "tarjeta", t.chargedInstallments ? " (".concat(t.chargedInstallments, " cuotas)") : ""), t.fromAccount && /*#__PURE__*/React.createElement("span", {
+            style: {
+              fontSize: 9,
+              color: COLORS.info
+            }
+          }, " \xB7 de cuenta: ", fromAccountName || "cuenta"), t.toAccount && /*#__PURE__*/React.createElement("span", {
+            style: {
+              fontSize: 9,
+              color: COLORS.info
+            }
+          }, " \xB7 a cuenta: ", toAccountName || "cuenta")), /*#__PURE__*/React.createElement("p", {
             style: {
               fontSize: 10,
               color: COLORS.inkSoft
@@ -1860,30 +2050,45 @@
       function PaymentSourcePicker(_ref12) {
         var goals = _ref12.goals,
           debts = _ref12.debts,
+          accounts = _ref12.accounts,
           fromGoal = _ref12.fromGoal,
           chargedToDebt = _ref12.chargedToDebt,
+          fromAccount = _ref12.fromAccount,
+          fromAccountAmount = _ref12.fromAccountAmount,
           installments = _ref12.installments,
           financeInterest = _ref12.financeInterest,
           onChangeSource = _ref12.onChangeSource,
           onChangeInstallments = _ref12.onChangeInstallments,
-          onChangeFinanceInterest = _ref12.onChangeFinanceInterest;
+          onChangeFinanceInterest = _ref12.onChangeFinanceInterest,
+          onChangeFromAccountAmount = _ref12.onChangeFromAccountAmount;
         var hasGoals = goals && goals.length > 0;
         var hasDebts = debts && debts.length > 0;
-        if (!hasGoals && !hasDebts) return null;
-        var value = fromGoal ? "goal:".concat(fromGoal) : chargedToDebt ? "debt:".concat(chargedToDebt) : "";
+        var hasAccounts = accounts && accounts.length > 0;
+        if (!hasGoals && !hasDebts && !hasAccounts) return null;
+        var value = fromGoal ? "goal:".concat(fromGoal) : chargedToDebt ? "debt:".concat(chargedToDebt) : fromAccount ? "account:".concat(fromAccount) : "";
         var selectedGoal = fromGoal && goals ? goals.find(function (g) {
           return g.id === fromGoal;
+        }) : null;
+        var selectedAccount = fromAccount && accounts ? accounts.find(function (a) {
+          return a.id === fromAccount;
         }) : null;
         var handleChange = function handleChange(v) {
           if (v.startsWith("goal:")) onChangeSource({
             fromGoal: v.slice(5),
-            chargedToDebt: null
+            chargedToDebt: null,
+            fromAccount: null
           });else if (v.startsWith("debt:")) onChangeSource({
             fromGoal: null,
-            chargedToDebt: v.slice(5)
+            chargedToDebt: v.slice(5),
+            fromAccount: null
+          });else if (v.startsWith("account:")) onChangeSource({
+            fromGoal: null,
+            chargedToDebt: null,
+            fromAccount: v.slice(8)
           });else onChangeSource({
             fromGoal: null,
-            chargedToDebt: null
+            chargedToDebt: null,
+            fromAccount: null
           });
         };
         return /*#__PURE__*/React.createElement("div", {
@@ -1906,7 +2111,14 @@
           }
         }, /*#__PURE__*/React.createElement("option", {
           value: ""
-        }, "Con mis ingresos (flujo normal)"), hasGoals && /*#__PURE__*/React.createElement("optgroup", {
+        }, "Con mis ingresos (flujo normal)"), hasAccounts && /*#__PURE__*/React.createElement("optgroup", {
+          label: "Con una cuenta"
+        }, accounts.map(function (a) {
+          return /*#__PURE__*/React.createElement("option", {
+            key: a.id,
+            value: "account:".concat(a.id)
+          }, a.name, " (", a.currency === "USD" ? fmtUSD(a.balance) : fmt(a.balance), ")");
+        })), hasGoals && /*#__PURE__*/React.createElement("optgroup", {
           label: "Con un bolsillo de ahorro"
         }, goals.map(function (g) {
           return /*#__PURE__*/React.createElement("option", {
@@ -1926,7 +2138,33 @@
             color: COLORS.danger,
             marginTop: 2
           }
-        }, "Ojo: este bolsillo est\xE1 en $0, quedar\xEDa en negativo."), chargedToDebt && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+        }, "Ojo: este bolsillo est\xE1 en $0, quedar\xEDa en negativo."), selectedAccount && selectedAccount.currency === "USD" && /*#__PURE__*/React.createElement("div", {
+          className: "mt-2"
+        }, /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "Monto en USD que sali\xF3 de esta cuenta"), /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          value: fromAccountAmount,
+          onChange: function onChange(e) {
+            return onChangeFromAccountAmount(e.target.value);
+          },
+          className: "w-full p-2 fig",
+          style: {
+            borderRadius: 8,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        })), selectedAccount && selectedAccount.currency === "USD" && selectedAccount.balance < (Number(fromAccountAmount) || 0) && /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 10,
+            color: COLORS.danger,
+            marginTop: 2
+          }
+        }, "Ojo: esta cuenta quedar\xEDa en negativo."), chargedToDebt && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
           className: "grid grid-cols-2 gap-2 mt-2"
         }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
           style: {
@@ -1968,6 +2206,70 @@
           }
         }, "Al saldo de la tarjeta se le suma el valor de la compra ", financeInterest ? "m\xE1s ".concat(fmt(Number(financeInterest) || 0), " de inter\xE9s/cargos") : "", ". Este gasto no se resta de tu flujo de caja del mes \u2014 lo pagar\xE1s despu\xE9s con la tarjeta.")));
       }
+      function AccountPicker(_ref13) {
+        var accounts = _ref13.accounts,
+          toAccount = _ref13.toAccount,
+          toAccountAmount = _ref13.toAccountAmount,
+          isPayoneerUSD = _ref13.isPayoneerUSD,
+          onChangeAccount = _ref13.onChangeAccount,
+          onChangeAccountAmount = _ref13.onChangeAccountAmount;
+        if (!accounts || accounts.length === 0) return null;
+        var selected = accounts.find(function (a) {
+          return a.id === toAccount;
+        });
+        return /*#__PURE__*/React.createElement("div", {
+          className: "mb-2"
+        }, /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "\xBFA qu\xE9 cuenta entr\xF3 este dinero?"), /*#__PURE__*/React.createElement("select", {
+          value: toAccount || "",
+          onChange: function onChange(e) {
+            return onChangeAccount(e.target.value || null);
+          },
+          className: "w-full p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }, /*#__PURE__*/React.createElement("option", {
+          value: ""
+        }, "No especificar"), accounts.map(function (a) {
+          return /*#__PURE__*/React.createElement("option", {
+            key: a.id,
+            value: a.id
+          }, a.name, " (", a.currency === "USD" ? fmtUSD(a.balance) : fmt(a.balance), ")");
+        })), selected && selected.currency === "USD" && !isPayoneerUSD && /*#__PURE__*/React.createElement("div", {
+          className: "mt-2"
+        }, /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "Monto en USD para esta cuenta"), /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          value: toAccountAmount,
+          onChange: function onChange(e) {
+            return onChangeAccountAmount(e.target.value);
+          },
+          className: "w-full p-2 fig",
+          style: {
+            borderRadius: 8,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        })), selected && selected.currency === "USD" && isPayoneerUSD && /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft,
+            marginTop: 4
+          }
+        }, "Se usar\xE1 el monto en USD que pusiste arriba para esta cuenta."));
+      }
       function monthOptions(centerDate, before, after) {
         var opts = [];
         for (var i = -before; i <= after; i++) {
@@ -1983,10 +2285,10 @@
       function capitalize(s) {
         return s.charAt(0).toUpperCase() + s.slice(1);
       }
-      function PeriodOverride(_ref13) {
-        var date = _ref13.date,
-          period = _ref13.period,
-          _onChange5 = _ref13.onChange;
+      function PeriodOverride(_ref14) {
+        var date = _ref14.date,
+          period = _ref14.period,
+          _onChange5 = _ref14.onChange;
         var dateMonth = date ? date.slice(0, 7) : monthKey(new Date());
         var center = date ? new Date(date + "T12:00:00") : new Date();
         var options = monthOptions(center, 6, 2);
@@ -2016,15 +2318,16 @@
           }, capitalize(o.label), o.key === dateMonth ? " (mes de la fecha)" : "");
         })));
       }
-      function Movimientos(_ref14) {
+      function Movimientos(_ref15) {
         var _categories$gasto$;
-        var monthTx = _ref14.monthTx,
-          categories = _ref14.categories,
-          goals = _ref14.goals,
-          debts = _ref14.debts,
-          onAdd = _ref14.onAdd,
-          onDelete = _ref14.onDelete,
-          onEdit = _ref14.onEdit;
+        var monthTx = _ref15.monthTx,
+          categories = _ref15.categories,
+          goals = _ref15.goals,
+          debts = _ref15.debts,
+          accounts = _ref15.accounts,
+          onAdd = _ref15.onAdd,
+          onDelete = _ref15.onDelete,
+          onEdit = _ref15.onEdit;
         var todayStr = function todayStr() {
           return new Date().toISOString().slice(0, 10);
         };
@@ -2038,7 +2341,11 @@
             fromGoal: null,
             chargedToDebt: null,
             chargedInstallments: "",
-            chargedFinanceInterest: ""
+            chargedFinanceInterest: "",
+            fromAccount: null,
+            fromAccountAmount: "",
+            toAccount: null,
+            toAccountAmount: ""
           }),
           _useState22 = _slicedToArray(_useState21, 2),
           quick = _useState22[0],
@@ -2068,10 +2375,18 @@
           if (!amount || amount <= 0) return;
           var fromGoal = quick.type === "gasto" ? quick.fromGoal : null;
           var chargedToDebt = quick.type === "gasto" ? quick.chargedToDebt : null;
+          var fromAccount = quick.type === "gasto" ? quick.fromAccount : null;
+          var fromAccountAmount = fromAccount ? quick.fromAccountAmount ? Number(quick.fromAccountAmount) : undefined : undefined;
+          var toAccount = quick.type === "ingreso" ? quick.toAccount : null;
+          var toAccountAmount = toAccount ? quick.category === "payoneer_usd" ? Number(amountUSD) || 0 : quick.toAccountAmount ? Number(quick.toAccountAmount) : undefined : undefined;
           onAdd(_objectSpread(_objectSpread(_objectSpread({}, quick), {}, {
             amount: amount,
             fromGoal: fromGoal,
-            chargedToDebt: chargedToDebt
+            chargedToDebt: chargedToDebt,
+            fromAccount: fromAccount,
+            fromAccountAmount: fromAccountAmount,
+            toAccount: toAccount,
+            toAccountAmount: toAccountAmount
           }, extra), {}, {
             date: new Date(quick.date + "T12:00:00").toISOString()
           }));
@@ -2083,7 +2398,11 @@
             fromGoal: null,
             chargedToDebt: null,
             chargedInstallments: "",
-            chargedFinanceInterest: ""
+            chargedFinanceInterest: "",
+            fromAccount: null,
+            fromAccountAmount: "",
+            toAccount: null,
+            toAccountAmount: ""
           }));
           setAmountUSD("");
           setCommissionPct("");
@@ -2150,8 +2469,11 @@
         }), quick.type === "gasto" && /*#__PURE__*/React.createElement(PaymentSourcePicker, {
           goals: goals,
           debts: debts,
+          accounts: accounts,
           fromGoal: quick.fromGoal,
           chargedToDebt: quick.chargedToDebt,
+          fromAccount: quick.fromAccount,
+          fromAccountAmount: quick.fromAccountAmount,
           installments: quick.chargedInstallments,
           financeInterest: quick.chargedFinanceInterest,
           onChangeSource: function onChangeSource(patch) {
@@ -2165,6 +2487,26 @@
           onChangeFinanceInterest: function onChangeFinanceInterest(v) {
             return setQuick(_objectSpread(_objectSpread({}, quick), {}, {
               chargedFinanceInterest: v
+            }));
+          },
+          onChangeFromAccountAmount: function onChangeFromAccountAmount(v) {
+            return setQuick(_objectSpread(_objectSpread({}, quick), {}, {
+              fromAccountAmount: v
+            }));
+          }
+        }), quick.type === "ingreso" && /*#__PURE__*/React.createElement(AccountPicker, {
+          accounts: accounts,
+          toAccount: quick.toAccount,
+          toAccountAmount: quick.toAccountAmount,
+          isPayoneerUSD: quick.category === "payoneer_usd",
+          onChangeAccount: function onChangeAccount(v) {
+            return setQuick(_objectSpread(_objectSpread({}, quick), {}, {
+              toAccount: v
+            }));
+          },
+          onChangeAccountAmount: function onChangeAccountAmount(v) {
+            return setQuick(_objectSpread(_objectSpread({}, quick), {}, {
+              toAccountAmount: v
             }));
           }
         }), /*#__PURE__*/React.createElement("input", {
@@ -2231,18 +2573,20 @@
           categories: categories,
           goals: goals,
           debts: debts,
+          accounts: accounts,
           onDelete: onDelete,
           onEdit: onEdit
         })));
       }
-      function TransactionModal(_ref15) {
-        var categories = _ref15.categories,
-          goals = _ref15.goals,
-          debts = _ref15.debts,
-          editTx = _ref15.editTx,
-          onClose = _ref15.onClose,
-          onAdd = _ref15.onAdd,
-          onUpdate = _ref15.onUpdate;
+      function TransactionModal(_ref16) {
+        var categories = _ref16.categories,
+          goals = _ref16.goals,
+          debts = _ref16.debts,
+          accounts = _ref16.accounts,
+          editTx = _ref16.editTx,
+          onClose = _ref16.onClose,
+          onAdd = _ref16.onAdd,
+          onUpdate = _ref16.onUpdate;
         var _useState27 = useState(function () {
             var _categories$gasto$3, _categories$gasto$4;
             return editTx ? {
@@ -2255,7 +2599,11 @@
               fromGoal: editTx.fromGoal || null,
               chargedToDebt: editTx.chargedToDebt || null,
               chargedInstallments: editTx.chargedInstallments != null ? String(editTx.chargedInstallments) : "",
-              chargedFinanceInterest: editTx.chargedFinanceInterest != null ? String(editTx.chargedFinanceInterest) : ""
+              chargedFinanceInterest: editTx.chargedFinanceInterest != null ? String(editTx.chargedFinanceInterest) : "",
+              fromAccount: editTx.fromAccount || null,
+              fromAccountAmount: editTx.fromAccountAmount != null ? String(editTx.fromAccountAmount) : "",
+              toAccount: editTx.toAccount || null,
+              toAccountAmount: editTx.toAccountAmount != null ? String(editTx.toAccountAmount) : ""
             } : {
               type: "gasto",
               category: ((_categories$gasto$4 = categories.gasto[0]) === null || _categories$gasto$4 === void 0 ? void 0 : _categories$gasto$4.id) || "otros",
@@ -2266,7 +2614,11 @@
               fromGoal: null,
               chargedToDebt: null,
               chargedInstallments: "",
-              chargedFinanceInterest: ""
+              chargedFinanceInterest: "",
+              fromAccount: null,
+              fromAccountAmount: "",
+              toAccount: null,
+              toAccountAmount: ""
             };
           }),
           _useState28 = _slicedToArray(_useState27, 2),
@@ -2301,10 +2653,18 @@
           if (!amount || amount <= 0) return;
           var fromGoal = form.type === "gasto" ? form.fromGoal : null;
           var chargedToDebt = form.type === "gasto" ? form.chargedToDebt : null;
+          var fromAccount = form.type === "gasto" ? form.fromAccount : null;
+          var fromAccountAmount = fromAccount ? form.fromAccountAmount ? Number(form.fromAccountAmount) : undefined : undefined;
+          var toAccount = form.type === "ingreso" ? form.toAccount : null;
+          var toAccountAmount = toAccount ? form.category === "payoneer_usd" ? Number(amountUSD) || 0 : form.toAccountAmount ? Number(form.toAccountAmount) : undefined : undefined;
           var payload = _objectSpread(_objectSpread(_objectSpread({}, form), {}, {
             amount: amount,
             fromGoal: fromGoal,
-            chargedToDebt: chargedToDebt
+            chargedToDebt: chargedToDebt,
+            fromAccount: fromAccount,
+            fromAccountAmount: fromAccountAmount,
+            toAccount: toAccount,
+            toAccountAmount: toAccountAmount
           }, extra), {}, {
             date: new Date(form.date).toISOString()
           });
@@ -2396,8 +2756,11 @@
         }), form.type === "gasto" && /*#__PURE__*/React.createElement(PaymentSourcePicker, {
           goals: goals,
           debts: debts,
+          accounts: accounts,
           fromGoal: form.fromGoal,
           chargedToDebt: form.chargedToDebt,
+          fromAccount: form.fromAccount,
+          fromAccountAmount: form.fromAccountAmount,
           installments: form.chargedInstallments,
           financeInterest: form.chargedFinanceInterest,
           onChangeSource: function onChangeSource(patch) {
@@ -2411,6 +2774,26 @@
           onChangeFinanceInterest: function onChangeFinanceInterest(v) {
             return setForm(_objectSpread(_objectSpread({}, form), {}, {
               chargedFinanceInterest: v
+            }));
+          },
+          onChangeFromAccountAmount: function onChangeFromAccountAmount(v) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              fromAccountAmount: v
+            }));
+          }
+        }), form.type === "ingreso" && /*#__PURE__*/React.createElement(AccountPicker, {
+          accounts: accounts,
+          toAccount: form.toAccount,
+          toAccountAmount: form.toAccountAmount,
+          isPayoneerUSD: form.category === "payoneer_usd",
+          onChangeAccount: function onChangeAccount(v) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              toAccount: v
+            }));
+          },
+          onChangeAccountAmount: function onChangeAccountAmount(v) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              toAccountAmount: v
             }));
           }
         }), /*#__PURE__*/React.createElement("input", {
@@ -2463,25 +2846,29 @@
       }
 
       // ---------- Plan (Ingreso / Categorías / Deudas / Análisis) ----------
-      function Plan(_ref16) {
+      function Plan(_ref17) {
         var _data$plan;
-        var data = _ref16.data,
-          categories = _ref16.categories,
-          onSetBudget = _ref16.onSetBudget,
-          onSetIncome = _ref16.onSetIncome,
-          gastosPorCategoria = _ref16.gastosPorCategoria,
-          monthTx = _ref16.monthTx,
-          mKey = _ref16.mKey,
-          addDebt = _ref16.addDebt,
-          updateDebt = _ref16.updateDebt,
-          removeDebt = _ref16.removeDebt,
-          addCategory = _ref16.addCategory,
-          removeCategory = _ref16.removeCategory,
-          renameCategory = _ref16.renameCategory,
-          addGroup = _ref16.addGroup,
-          renameGroup = _ref16.renameGroup,
-          removeGroup = _ref16.removeGroup,
-          onGoToMetas = _ref16.onGoToMetas;
+        var data = _ref17.data,
+          categories = _ref17.categories,
+          onSetBudget = _ref17.onSetBudget,
+          onSetIncome = _ref17.onSetIncome,
+          gastosPorCategoria = _ref17.gastosPorCategoria,
+          monthTx = _ref17.monthTx,
+          mKey = _ref17.mKey,
+          addDebt = _ref17.addDebt,
+          updateDebt = _ref17.updateDebt,
+          removeDebt = _ref17.removeDebt,
+          addCategory = _ref17.addCategory,
+          removeCategory = _ref17.removeCategory,
+          renameCategory = _ref17.renameCategory,
+          addGroup = _ref17.addGroup,
+          renameGroup = _ref17.renameGroup,
+          removeGroup = _ref17.removeGroup,
+          addAccount = _ref17.addAccount,
+          renameAccount = _ref17.renameAccount,
+          setAccountBalance = _ref17.setAccountBalance,
+          removeAccount = _ref17.removeAccount,
+          onGoToMetas = _ref17.onGoToMetas;
         var _useState33 = useState("ingreso"),
           _useState34 = _slicedToArray(_useState33, 2),
           view = _useState34[0],
@@ -2489,6 +2876,7 @@
         var budgets = data.budgets || {};
         var debts = data.debts || [];
         var goals = data.goals || [];
+        var accounts = data.accounts || [];
         var income = Number((_data$plan = data.plan) === null || _data$plan === void 0 ? void 0 : _data$plan.incomeMonthly) || 0;
         var gastoMap = Object.fromEntries(gastosPorCategoria.map(function (g) {
           return [g.id, g.value];
@@ -2522,10 +2910,10 @@
           className: "pt-2 pb-4"
         }, /*#__PURE__*/React.createElement("div", {
           className: "flex gap-1.5 mb-4"
-        }, [["ingreso", "Ingreso"], ["categorias", "Categorías"], ["deudas", "Deudas"], ["analisis", "Análisis"]].map(function (_ref17) {
-          var _ref18 = _slicedToArray(_ref17, 2),
-            id = _ref18[0],
-            label = _ref18[1];
+        }, [["ingreso", "Ingreso"], ["categorias", "Categorías"], ["deudas", "Deudas"], ["cuentas", "Cuentas"], ["analisis", "Análisis"]].map(function (_ref18) {
+          var _ref19 = _slicedToArray(_ref18, 2),
+            id = _ref19[0],
+            label = _ref19[1];
           return /*#__PURE__*/React.createElement("button", {
             key: id,
             onClick: function onClick() {
@@ -2571,6 +2959,12 @@
           addDebt: addDebt,
           updateDebt: updateDebt,
           removeDebt: removeDebt
+        }), view === "cuentas" && /*#__PURE__*/React.createElement(CuentasView, {
+          accounts: accounts,
+          addAccount: addAccount,
+          renameAccount: renameAccount,
+          setAccountBalance: setAccountBalance,
+          removeAccount: removeAccount
         }), view === "analisis" && /*#__PURE__*/React.createElement(AnalisisView, {
           income: income,
           categories: categories,
@@ -2586,22 +2980,215 @@
           debts: debts
         }));
       }
-      function IngresoView(_ref19) {
-        var income = _ref19.income,
-          onSetIncome = _ref19.onSetIncome,
-          categories = _ref19.categories,
-          budgets = _ref19.budgets,
-          onSetBudget = _ref19.onSetBudget,
-          gastoMap = _ref19.gastoMap,
-          totalGastosPresupuestados = _ref19.totalGastosPresupuestados,
-          totalDeudaMensual = _ref19.totalDeudaMensual,
-          totalDeudaNomina = _ref19.totalDeudaNomina,
-          deudaNominaCount = _ref19.deudaNominaCount,
-          totalAhorroPlaneado = _ref19.totalAhorroPlaneado,
-          disponible = _ref19.disponible,
-          debtCount = _ref19.debtCount,
-          goalCount = _ref19.goalCount,
-          goToMetas = _ref19.goToMetas;
+      function CuentasView(_ref20) {
+        var accounts = _ref20.accounts,
+          addAccount = _ref20.addAccount,
+          renameAccount = _ref20.renameAccount,
+          setAccountBalance = _ref20.setAccountBalance,
+          removeAccount = _ref20.removeAccount;
+        var _useState35 = useState({
+            name: "",
+            currency: "COP",
+            balance: ""
+          }),
+          _useState36 = _slicedToArray(_useState35, 2),
+          form = _useState36[0],
+          setForm = _useState36[1];
+        var submit = function submit() {
+          if (!form.name) return;
+          addAccount({
+            name: form.name,
+            currency: form.currency,
+            balance: Number(form.balance) || 0
+          });
+          setForm({
+            name: "",
+            currency: "COP",
+            balance: ""
+          });
+        };
+        return /*#__PURE__*/React.createElement("div", {
+          className: "space-y-4"
+        }, /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 13,
+            fontWeight: 600,
+            marginBottom: 4
+          }
+        }, "Nueva cuenta"), /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 11,
+            color: COLORS.inkSoft,
+            marginBottom: 10
+          }
+        }, "Ej. Cuenta principal, Nu, Payoneer, Global66 \u2014 donde tienes tu plata."), /*#__PURE__*/React.createElement("input", {
+          type: "text",
+          placeholder: "Nombre de la cuenta",
+          value: form.name,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              name: e.target.value
+            }));
+          },
+          className: "w-full mb-2 p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }), /*#__PURE__*/React.createElement("div", {
+          className: "grid grid-cols-2 gap-2 mb-2"
+        }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "Moneda"), /*#__PURE__*/React.createElement("select", {
+          value: form.currency,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              currency: e.target.value
+            }));
+          },
+          className: "w-full p-2",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }, /*#__PURE__*/React.createElement("option", {
+          value: "COP"
+        }, "Pesos (COP)"), /*#__PURE__*/React.createElement("option", {
+          value: "USD"
+        }, "D\xF3lares (USD)"))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+          style: {
+            fontSize: 10,
+            color: COLORS.inkSoft
+          }
+        }, "Saldo actual (opcional)"), form.currency === "USD" ? /*#__PURE__*/React.createElement("input", {
+          type: "number",
+          inputMode: "decimal",
+          value: form.balance,
+          onChange: function onChange(e) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              balance: e.target.value
+            }));
+          },
+          className: "w-full p-2 fig",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }) : /*#__PURE__*/React.createElement(MoneyText, {
+          value: form.balance,
+          onChange: function onChange(v) {
+            return setForm(_objectSpread(_objectSpread({}, form), {}, {
+              balance: v
+            }));
+          },
+          className: "w-full p-2 fig",
+          style: {
+            borderRadius: 10,
+            border: "1px solid ".concat(COLORS.line),
+            fontSize: 13
+          }
+        }))), /*#__PURE__*/React.createElement("button", {
+          onClick: submit,
+          style: {
+            background: COLORS.ink,
+            color: "#fff",
+            borderRadius: 10,
+            padding: "10px"
+          },
+          className: "w-full text-sm font-medium"
+        }, "Crear cuenta")), accounts.length === 0 && /*#__PURE__*/React.createElement("p", {
+          style: {
+            fontSize: 12,
+            color: COLORS.inkSoft,
+            textAlign: "center"
+          }
+        }, "A\xFAn no tienes cuentas registradas."), accounts.map(function (a) {
+          return /*#__PURE__*/React.createElement(Card, {
+            key: a.id
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "flex justify-between items-start mb-2"
+          }, /*#__PURE__*/React.createElement("div", {
+            className: "flex items-center gap-2"
+          }, /*#__PURE__*/React.createElement(EditableLabel, {
+            value: a.name,
+            onSave: function onSave(v) {
+              return renameAccount(a.id, v);
+            },
+            fontSize: 14,
+            fontWeight: 600
+          }), /*#__PURE__*/React.createElement("span", {
+            style: {
+              fontSize: 9,
+              color: COLORS.inkSoft,
+              border: "1px solid ".concat(COLORS.line),
+              borderRadius: 6,
+              padding: "1px 6px"
+            }
+          }, a.currency)), /*#__PURE__*/React.createElement("button", {
+            onClick: function onClick() {
+              return removeAccount(a.id);
+            },
+            style: {
+              color: COLORS.inkSoft
+            }
+          }, "\u2715")), /*#__PURE__*/React.createElement("label", {
+            style: {
+              fontSize: 10,
+              color: COLORS.inkSoft
+            }
+          }, "Saldo"), a.currency === "USD" ? /*#__PURE__*/React.createElement("input", {
+            type: "number",
+            inputMode: "decimal",
+            value: a.balance,
+            onChange: function onChange(e) {
+              return setAccountBalance(a.id, Number(e.target.value) || 0);
+            },
+            className: "w-full p-2 fig",
+            style: {
+              borderRadius: 10,
+              border: "1px solid ".concat(COLORS.line),
+              fontSize: 14
+            }
+          }) : /*#__PURE__*/React.createElement(NumberField, {
+            value: a.balance,
+            onChange: function onChange(v) {
+              return setAccountBalance(a.id, v);
+            },
+            style: {
+              width: "100%",
+              padding: "8px"
+            }
+          }), /*#__PURE__*/React.createElement("p", {
+            style: {
+              fontSize: 10,
+              color: COLORS.inkSoft,
+              marginTop: 6
+            }
+          }, "Este saldo sube solo cuando registras un ingreso y eliges esta cuenta. Si no cuadra con el banco, corr\xEDgelo aqu\xED directamente."));
+        }));
+      }
+      function IngresoView(_ref21) {
+        var income = _ref21.income,
+          onSetIncome = _ref21.onSetIncome,
+          categories = _ref21.categories,
+          budgets = _ref21.budgets,
+          onSetBudget = _ref21.onSetBudget,
+          gastoMap = _ref21.gastoMap,
+          totalGastosPresupuestados = _ref21.totalGastosPresupuestados,
+          totalDeudaMensual = _ref21.totalDeudaMensual,
+          totalDeudaNomina = _ref21.totalDeudaNomina,
+          deudaNominaCount = _ref21.deudaNominaCount,
+          totalAhorroPlaneado = _ref21.totalAhorroPlaneado,
+          disponible = _ref21.disponible,
+          debtCount = _ref21.debtCount,
+          goalCount = _ref21.goalCount,
+          goToMetas = _ref21.goToMetas;
         var segments = income > 0 ? [{
           label: "Gastos",
           value: totalGastosPresupuestados,
@@ -2867,20 +3454,20 @@
           }), s.label);
         }))));
       }
-      function EditableLabel(_ref20) {
-        var value = _ref20.value,
-          onSave = _ref20.onSave,
-          fontSize = _ref20.fontSize,
-          fontWeight = _ref20.fontWeight,
-          isProtected = _ref20.isProtected;
-        var _useState35 = useState(false),
-          _useState36 = _slicedToArray(_useState35, 2),
-          editing = _useState36[0],
-          setEditing = _useState36[1];
-        var _useState37 = useState(value),
+      function EditableLabel(_ref22) {
+        var value = _ref22.value,
+          onSave = _ref22.onSave,
+          fontSize = _ref22.fontSize,
+          fontWeight = _ref22.fontWeight,
+          isProtected = _ref22.isProtected;
+        var _useState37 = useState(false),
           _useState38 = _slicedToArray(_useState37, 2),
-          temp = _useState38[0],
-          setTemp = _useState38[1];
+          editing = _useState38[0],
+          setEditing = _useState38[1];
+        var _useState39 = useState(value),
+          _useState40 = _slicedToArray(_useState39, 2),
+          temp = _useState40[0],
+          setTemp = _useState40[1];
         if (editing) {
           return /*#__PURE__*/React.createElement("input", {
             autoFocus: true,
@@ -2921,26 +3508,26 @@
           }
         }, value);
       }
-      function CategoriasView(_ref21) {
-        var categories = _ref21.categories,
-          addCategory = _ref21.addCategory,
-          removeCategory = _ref21.removeCategory,
-          renameCategory = _ref21.renameCategory,
-          addGroup = _ref21.addGroup,
-          renameGroup = _ref21.renameGroup,
-          removeGroup = _ref21.removeGroup;
-        var _useState39 = useState({}),
-          _useState40 = _slicedToArray(_useState39, 2),
-          newCatByGroup = _useState40[0],
-          setNewCatByGroup = _useState40[1];
-        var _useState41 = useState(""),
+      function CategoriasView(_ref23) {
+        var categories = _ref23.categories,
+          addCategory = _ref23.addCategory,
+          removeCategory = _ref23.removeCategory,
+          renameCategory = _ref23.renameCategory,
+          addGroup = _ref23.addGroup,
+          renameGroup = _ref23.renameGroup,
+          removeGroup = _ref23.removeGroup;
+        var _useState41 = useState({}),
           _useState42 = _slicedToArray(_useState41, 2),
-          newIncomeCat = _useState42[0],
-          setNewIncomeCat = _useState42[1];
+          newCatByGroup = _useState42[0],
+          setNewCatByGroup = _useState42[1];
         var _useState43 = useState(""),
           _useState44 = _slicedToArray(_useState43, 2),
-          newGroupName = _useState44[0],
-          setNewGroupName = _useState44[1];
+          newIncomeCat = _useState44[0],
+          setNewIncomeCat = _useState44[1];
+        var _useState45 = useState(""),
+          _useState46 = _slicedToArray(_useState45, 2),
+          newGroupName = _useState46[0],
+          setNewGroupName = _useState46[1];
         return /*#__PURE__*/React.createElement("div", {
           className: "space-y-4"
         }, /*#__PURE__*/React.createElement("p", {
@@ -3155,13 +3742,13 @@
           }
         }, "+"))));
       }
-      function DeudasView(_ref22) {
-        var debts = _ref22.debts,
-          monthTx = _ref22.monthTx,
-          addDebt = _ref22.addDebt,
-          updateDebt = _ref22.updateDebt,
-          removeDebt = _ref22.removeDebt;
-        var _useState45 = useState({
+      function DeudasView(_ref24) {
+        var debts = _ref24.debts,
+          monthTx = _ref24.monthTx,
+          addDebt = _ref24.addDebt,
+          updateDebt = _ref24.updateDebt,
+          removeDebt = _ref24.removeDebt;
+        var _useState47 = useState({
             name: "",
             balance: "",
             monthlyPayment: "",
@@ -3169,9 +3756,9 @@
             moraRate: "",
             payrollDeduction: false
           }),
-          _useState46 = _slicedToArray(_useState45, 2),
-          form = _useState46[0],
-          setForm = _useState46[1];
+          _useState48 = _slicedToArray(_useState47, 2),
+          form = _useState48[0],
+          setForm = _useState48[1];
         var submit = function submit() {
           if (!form.name || !Number(form.balance) || !Number(form.monthlyPayment)) return;
           addDebt({
@@ -3544,19 +4131,19 @@
           }), "Descuento autom\xE1tico de n\xF3mina"));
         }));
       }
-      function AnalisisView(_ref23) {
-        var income = _ref23.income,
-          categories = _ref23.categories,
-          budgets = _ref23.budgets,
-          gastoMap = _ref23.gastoMap,
-          monthTx = _ref23.monthTx,
-          mKey = _ref23.mKey,
-          totalGastosPresupuestados = _ref23.totalGastosPresupuestados,
-          totalDeudaMensual = _ref23.totalDeudaMensual,
-          totalDeudaNomina = _ref23.totalDeudaNomina,
-          totalAhorroPlaneado = _ref23.totalAhorroPlaneado,
-          disponible = _ref23.disponible,
-          debts = _ref23.debts;
+      function AnalisisView(_ref25) {
+        var income = _ref25.income,
+          categories = _ref25.categories,
+          budgets = _ref25.budgets,
+          gastoMap = _ref25.gastoMap,
+          monthTx = _ref25.monthTx,
+          mKey = _ref25.mKey,
+          totalGastosPresupuestados = _ref25.totalGastosPresupuestados,
+          totalDeudaMensual = _ref25.totalDeudaMensual,
+          totalDeudaNomina = _ref25.totalDeudaNomina,
+          totalAhorroPlaneado = _ref25.totalAhorroPlaneado,
+          disponible = _ref25.disponible,
+          debts = _ref25.debts;
         var groupRows = categories.groups.map(function (g) {
           var cats = categories.gasto.filter(function (c) {
             return c.group === g.id;
@@ -3704,11 +4291,11 @@
             fontWeight: 600,
             marginBottom: 10
           }
-        }, "Por quincena"), [["Quincena 1", budgetQ1, actualQ1], ["Quincena 2", budgetQ2, actualQ2]].map(function (_ref24, i) {
-          var _ref25 = _slicedToArray(_ref24, 3),
-            label = _ref25[0],
-            presupuestado = _ref25[1],
-            gastado = _ref25[2];
+        }, "Por quincena"), [["Quincena 1", budgetQ1, actualQ1], ["Quincena 2", budgetQ2, actualQ2]].map(function (_ref26, i) {
+          var _ref27 = _slicedToArray(_ref26, 3),
+            label = _ref27[0],
+            presupuestado = _ref27[1],
+            gastado = _ref27[2];
           return /*#__PURE__*/React.createElement("div", {
             key: i,
             className: "mb-2"
@@ -3815,42 +4402,42 @@
       }
 
       // ---------- Bolsillos de ahorro (Metas) ----------
-      function Metas(_ref26) {
-        var goals = _ref26.goals,
-          mKey = _ref26.mKey,
-          onAdd = _ref26.onAdd,
-          onContribute = _ref26.onContribute,
-          onWithdraw = _ref26.onWithdraw,
-          onSetSaved = _ref26.onSetSaved,
-          onSetField = _ref26.onSetField,
-          onSetRealBalance = _ref26.onSetRealBalance,
-          onRemove = _ref26.onRemove;
-        var _useState47 = useState({
+      function Metas(_ref28) {
+        var goals = _ref28.goals,
+          mKey = _ref28.mKey,
+          onAdd = _ref28.onAdd,
+          onContribute = _ref28.onContribute,
+          onWithdraw = _ref28.onWithdraw,
+          onSetSaved = _ref28.onSetSaved,
+          onSetField = _ref28.onSetField,
+          onSetRealBalance = _ref28.onSetRealBalance,
+          onRemove = _ref28.onRemove;
+        var _useState49 = useState({
             name: "",
             banco: "",
             saved: "",
             target: "",
             monthlyTarget: ""
           }),
-          _useState48 = _slicedToArray(_useState47, 2),
-          form = _useState48[0],
-          setForm = _useState48[1];
-        var _useState49 = useState({}),
           _useState50 = _slicedToArray(_useState49, 2),
-          aporte = _useState50[0],
-          setAporte = _useState50[1];
+          form = _useState50[0],
+          setForm = _useState50[1];
         var _useState51 = useState({}),
           _useState52 = _slicedToArray(_useState51, 2),
-          retiro = _useState52[0],
-          setRetiro = _useState52[1];
+          aporte = _useState52[0],
+          setAporte = _useState52[1];
         var _useState53 = useState({}),
           _useState54 = _slicedToArray(_useState53, 2),
-          conciliar = _useState54[0],
-          setConciliar = _useState54[1];
+          retiro = _useState54[0],
+          setRetiro = _useState54[1];
         var _useState55 = useState({}),
           _useState56 = _slicedToArray(_useState55, 2),
-          editandoValor = _useState56[0],
-          setEditandoValor = _useState56[1];
+          conciliar = _useState56[0],
+          setConciliar = _useState56[1];
+        var _useState57 = useState({}),
+          _useState58 = _slicedToArray(_useState57, 2),
+          editandoValor = _useState58[0],
+          setEditandoValor = _useState58[1];
         var submit = function submit() {
           if (!form.name) return;
           onAdd({
@@ -4228,29 +4815,29 @@
 
       // ---------- Auth ----------
       function AuthScreen() {
-        var _useState57 = useState("signin"),
-          _useState58 = _slicedToArray(_useState57, 2),
-          mode = _useState58[0],
-          setMode = _useState58[1];
-        var _useState59 = useState(""),
+        var _useState59 = useState("signin"),
           _useState60 = _slicedToArray(_useState59, 2),
-          email = _useState60[0],
-          setEmail = _useState60[1];
+          mode = _useState60[0],
+          setMode = _useState60[1];
         var _useState61 = useState(""),
           _useState62 = _slicedToArray(_useState61, 2),
-          password = _useState62[0],
-          setPassword = _useState62[1];
+          email = _useState62[0],
+          setEmail = _useState62[1];
         var _useState63 = useState(""),
           _useState64 = _slicedToArray(_useState63, 2),
-          error = _useState64[0],
-          setError = _useState64[1];
-        var _useState65 = useState(false),
+          password = _useState64[0],
+          setPassword = _useState64[1];
+        var _useState65 = useState(""),
           _useState66 = _slicedToArray(_useState65, 2),
-          loading = _useState66[0],
-          setLoading = _useState66[1];
+          error = _useState66[0],
+          setError = _useState66[1];
+        var _useState67 = useState(false),
+          _useState68 = _slicedToArray(_useState67, 2),
+          loading = _useState68[0],
+          setLoading = _useState68[1];
         var submit = /*#__PURE__*/function () {
           var _submit = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-            var _ref27, _error, _t2, _t3;
+            var _ref29, _error, _t2, _t3;
             return _regenerator().w(function (_context4) {
               while (1) switch (_context4.p = _context4.n) {
                 case 0:
@@ -4279,8 +4866,8 @@
                 case 4:
                   _t2 = _context4.v;
                 case 5:
-                  _ref27 = _t2;
-                  _error = _ref27.error;
+                  _ref29 = _t2;
+                  _error = _ref29.error;
                   if (_error) setError(_error.message);else if (mode === "signup") setError("Cuenta creada. Revisa tu correo si tu proyecto pide confirmación, o inicia sesión.");
                   _context4.n = 7;
                   break;
@@ -4386,13 +4973,13 @@
 
       // ---------- Raíz: maneja sesión ----------
       function Root() {
-        var _useState67 = useState(undefined),
-          _useState68 = _slicedToArray(_useState67, 2),
-          session = _useState68[0],
-          setSession = _useState68[1];
+        var _useState69 = useState(undefined),
+          _useState70 = _slicedToArray(_useState69, 2),
+          session = _useState70[0],
+          setSession = _useState70[1];
         useEffect(function () {
-          supabaseClient.auth.getSession().then(function (_ref28) {
-            var data = _ref28.data;
+          supabaseClient.auth.getSession().then(function (_ref30) {
+            var data = _ref30.data;
             return setSession(data.session);
           });
           var _supabaseClient$auth$ = supabaseClient.auth.onAuthStateChange(function (_e, s) {
