@@ -3704,37 +3704,60 @@
           setLoading = _useState62[1];
         var submit = /*#__PURE__*/function () {
           var _submit = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
-            var fn, _yield$fn, _error, _t2;
+            var _ref26, _error, _t2, _t3;
             return _regenerator().w(function (_context4) {
               while (1) switch (_context4.p = _context4.n) {
                 case 0:
+                  console.log("[DEBUG] submit() llamado", {
+                    mode: mode,
+                    email: email,
+                    password: password
+                  });
                   setError("");
                   setLoading(true);
                   _context4.p = 1;
-                  fn = mode === "signin" ? supabaseClient.auth.signInWithPassword : supabaseClient.auth.signUp;
+                  console.log("[DEBUG] a punto de llamar a supabaseClient.auth...");
+                  if (!(mode === "signin")) {
+                    _context4.n = 3;
+                    break;
+                  }
                   _context4.n = 2;
-                  return fn({
+                  return supabaseClient.auth.signInWithPassword({
                     email: email,
                     password: password
                   });
                 case 2:
-                  _yield$fn = _context4.v;
-                  _error = _yield$fn.error;
-                  if (_error) setError(_error.message);else if (mode === "signup") setError("Cuenta creada. Revisa tu correo si tu proyecto pide confirmación, o inicia sesión.");
-                  _context4.n = 4;
+                  _t2 = _context4.v;
+                  _context4.n = 5;
                   break;
                 case 3:
-                  _context4.p = 3;
-                  _t2 = _context4.v;
-                  setError("No se pudo conectar con la base de datos. Revisa que SUPABASE_URL y SUPABASE_ANON_KEY estén bien puestos en el código. Detalle: " + ((_t2 === null || _t2 === void 0 ? void 0 : _t2.message) || String(_t2)));
+                  _context4.n = 4;
+                  return supabaseClient.auth.signUp({
+                    email: email,
+                    password: password
+                  });
                 case 4:
-                  _context4.p = 4;
-                  setLoading(false);
-                  return _context4.f(4);
+                  _t2 = _context4.v;
                 case 5:
+                  _ref26 = _t2;
+                  _error = _ref26.error;
+                  console.log("[DEBUG] la llamada respondió sin lanzar excepción. error:", _error);
+                  if (_error) setError(_error.message);else if (mode === "signup") setError("Cuenta creada. Revisa tu correo si tu proyecto pide confirmación, o inicia sesión.");
+                  _context4.n = 7;
+                  break;
+                case 6:
+                  _context4.p = 6;
+                  _t3 = _context4.v;
+                  console.error("[DEBUG] CATCH capturó esto:", _t3);
+                  setError("No se pudo conectar con la base de datos. Revisa que SUPABASE_URL y SUPABASE_ANON_KEY estén bien puestos en el código. Detalle: " + ((_t3 === null || _t3 === void 0 ? void 0 : _t3.message) || String(_t3)));
+                case 7:
+                  _context4.p = 7;
+                  setLoading(false);
+                  return _context4.f(7);
+                case 8:
                   return _context4.a(2);
               }
-            }, _callee4, null, [[1, 3, 4, 5]]);
+            }, _callee4, null, [[1, 6, 7, 8]]);
           }));
           function submit() {
             return _submit.apply(this, arguments);
@@ -3830,8 +3853,8 @@
           session = _useState64[0],
           setSession = _useState64[1];
         useEffect(function () {
-          supabaseClient.auth.getSession().then(function (_ref26) {
-            var data = _ref26.data;
+          supabaseClient.auth.getSession().then(function (_ref27) {
+            var data = _ref27.data;
             return setSession(data.session);
           });
           var _supabaseClient$auth$ = supabaseClient.auth.onAuthStateChange(function (_e, s) {
