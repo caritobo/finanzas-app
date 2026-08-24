@@ -426,22 +426,10 @@
           }
           return persist;
         }();
-        if (loading || !data) {
-          return /*#__PURE__*/React.createElement("div", {
-            style: {
-              background: COLORS.paper
-            },
-            className: "min-h-screen flex items-center justify-center"
-          }, /*#__PURE__*/React.createElement("p", {
-            style: {
-              color: COLORS.inkSoft
-            }
-          }, "Cargando tus finanzas\u2026"));
-        }
         var mKey = monthKey(cursor);
-        var categories = data.categories;
+        var categories = data ? data.categories : DEFAULT_CATEGORIES;
         var monthTx = useMemo(function () {
-          return data.transactions.filter(function (t) {
+          return (data ? data.transactions : []).filter(function (t) {
             return txMonthKey(t) === mKey;
           });
         }, [data, mKey]);
@@ -491,7 +479,7 @@
           var _loop = function _loop() {
             var d = new Date(cursor.getFullYear(), cursor.getMonth() - i, 1);
             var k = monthKey(d);
-            var tx = data.transactions.filter(function (t) {
+            var tx = (data ? data.transactions : []).filter(function (t) {
               return txMonthKey(t) === k;
             });
             var inc = tx.filter(function (t) {
@@ -521,6 +509,18 @@
           }
           return out;
         }, [data, cursor]);
+        if (loading || !data) {
+          return /*#__PURE__*/React.createElement("div", {
+            style: {
+              background: COLORS.paper
+            },
+            className: "min-h-screen flex items-center justify-center"
+          }, /*#__PURE__*/React.createElement("p", {
+            style: {
+              color: COLORS.inkSoft
+            }
+          }, "Cargando tus finanzas\u2026"));
+        }
         var addTransaction = function addTransaction(tx) {
           var nextGoals = data.goals;
           if (tx.type === "gasto" && tx.fromGoal) {
