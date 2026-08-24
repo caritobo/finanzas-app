@@ -551,7 +551,7 @@
           var debts = base.debts;
           var accounts = base.accounts || [];
           var extra = {};
-          if (tx.type === "gasto" && tx.fromGoal) {
+          if (tx.fromGoal) {
             var goal = goals.find(function (g) {
               return g.id === tx.fromGoal;
             });
@@ -644,7 +644,7 @@
               });
             }
           }
-          if (tx.type === "ingreso" && tx.toAccount) {
+          if (tx.toAccount) {
             var _account = accounts.find(function (a) {
               return a.id === tx.toAccount;
             });
@@ -858,7 +858,7 @@
             })
           }));
         };
-        var contributeGoal = function contributeGoal(id, amount) {
+        var contributeGoal = function contributeGoal(id, amount, fromAccount, fromAccountAmount) {
           var goal = data.goals.find(function (g) {
             return g.id === id;
           });
@@ -869,10 +869,12 @@
             amount: amount,
             note: "Aporte a bolsillo: ".concat(goal.name),
             date: new Date().toISOString(),
-            toGoal: id
+            toGoal: id,
+            fromAccount: fromAccount || null,
+            fromAccountAmount: fromAccountAmount
           });
         };
-        var withdrawGoal = function withdrawGoal(id, amount) {
+        var withdrawGoal = function withdrawGoal(id, amount, toAccount, toAccountAmount) {
           var goal = data.goals.find(function (g) {
             return g.id === id;
           });
@@ -882,7 +884,9 @@
             amount: amount,
             note: "Retiro de bolsillo: ".concat(goal.name),
             date: new Date().toISOString(),
-            fromGoal: id
+            fromGoal: id,
+            toAccount: toAccount || null,
+            toAccountAmount: toAccountAmount
           });
         };
         var setGoalRealBalance = function setGoalRealBalance(id, value) {
@@ -1200,6 +1204,7 @@
           }
         }), tab === "metas" && /*#__PURE__*/React.createElement(Metas, {
           goals: data.goals,
+          accounts: data.accounts,
           mKey: mKey,
           onAdd: addGoal,
           onContribute: contributeGoal,
@@ -4404,6 +4409,7 @@
       // ---------- Bolsillos de ahorro (Metas) ----------
       function Metas(_ref28) {
         var goals = _ref28.goals,
+          accounts = _ref28.accounts,
           mKey = _ref28.mKey,
           onAdd = _ref28.onAdd,
           onContribute = _ref28.onContribute,
@@ -4428,16 +4434,32 @@
           setAporte = _useState52[1];
         var _useState53 = useState({}),
           _useState54 = _slicedToArray(_useState53, 2),
-          retiro = _useState54[0],
-          setRetiro = _useState54[1];
+          aporteCuenta = _useState54[0],
+          setAporteCuenta = _useState54[1];
         var _useState55 = useState({}),
           _useState56 = _slicedToArray(_useState55, 2),
-          conciliar = _useState56[0],
-          setConciliar = _useState56[1];
+          aporteCuentaMonto = _useState56[0],
+          setAporteCuentaMonto = _useState56[1];
         var _useState57 = useState({}),
           _useState58 = _slicedToArray(_useState57, 2),
-          editandoValor = _useState58[0],
-          setEditandoValor = _useState58[1];
+          retiroCuenta = _useState58[0],
+          setRetiroCuenta = _useState58[1];
+        var _useState59 = useState({}),
+          _useState60 = _slicedToArray(_useState59, 2),
+          retiroCuentaMonto = _useState60[0],
+          setRetiroCuentaMonto = _useState60[1];
+        var _useState61 = useState({}),
+          _useState62 = _slicedToArray(_useState61, 2),
+          retiro = _useState62[0],
+          setRetiro = _useState62[1];
+        var _useState63 = useState({}),
+          _useState64 = _slicedToArray(_useState63, 2),
+          conciliar = _useState64[0],
+          setConciliar = _useState64[1];
+        var _useState65 = useState({}),
+          _useState66 = _slicedToArray(_useState65, 2),
+          editandoValor = _useState66[0],
+          setEditandoValor = _useState66[1];
         var submit = function submit() {
           if (!form.name) return;
           onAdd({
@@ -4566,7 +4588,7 @@
             textAlign: "center"
           }
         }, "A\xFAn no tienes bolsillos de ahorro."), goals.map(function (g) {
-          var _g$realBalance;
+          var _accounts$find3, _accounts$find4, _g$realBalance;
           var p = g.target > 0 ? Math.min(100, g.saved / g.target * 100) : null;
           var aportadoMes = (g.movements || []).filter(function (m) {
             return m.type === "aporte" && m.date.slice(0, 7) === mKey;
@@ -4723,8 +4745,12 @@
             onClick: function onClick() {
               var v = Number(aporte[g.id]);
               if (v > 0) {
-                onContribute(g.id, v);
+                var accId = aporteCuenta[g.id] || null;
+                var accAmt = accId && aporteCuentaMonto[g.id] ? Number(aporteCuentaMonto[g.id]) : undefined;
+                onContribute(g.id, v, accId, accAmt);
                 setAporte(_objectSpread(_objectSpread({}, aporte), {}, _defineProperty({}, g.id, "")));
+                setAporteCuenta(_objectSpread(_objectSpread({}, aporteCuenta), {}, _defineProperty({}, g.id, null)));
+                setAporteCuentaMonto(_objectSpread(_objectSpread({}, aporteCuentaMonto), {}, _defineProperty({}, g.id, "")));
               }
             },
             style: {
@@ -4734,7 +4760,43 @@
               padding: "0 14px"
             },
             className: "text-sm font-medium"
-          }, "Aportar")), /*#__PURE__*/React.createElement("div", {
+          }, "Aportar")), accounts && accounts.length > 0 && /*#__PURE__*/React.createElement("div", {
+            className: "mb-2"
+          }, /*#__PURE__*/React.createElement("select", {
+            value: aporteCuenta[g.id] || "",
+            onChange: function onChange(e) {
+              return setAporteCuenta(_objectSpread(_objectSpread({}, aporteCuenta), {}, _defineProperty({}, g.id, e.target.value || null)));
+            },
+            className: "w-full p-2",
+            style: {
+              borderRadius: 10,
+              border: "1px solid ".concat(COLORS.line),
+              fontSize: 12
+            }
+          }, /*#__PURE__*/React.createElement("option", {
+            value: ""
+          }, "\xBFDe qu\xE9 cuenta sale el aporte? (opcional)"), accounts.map(function (a) {
+            return /*#__PURE__*/React.createElement("option", {
+              key: a.id,
+              value: a.id
+            }, a.name, " (", a.currency === "USD" ? fmtUSD(a.balance) : fmt(a.balance), ")");
+          })), aporteCuenta[g.id] && ((_accounts$find3 = accounts.find(function (a) {
+            return a.id === aporteCuenta[g.id];
+          })) === null || _accounts$find3 === void 0 ? void 0 : _accounts$find3.currency) === "USD" && /*#__PURE__*/React.createElement("input", {
+            type: "number",
+            inputMode: "decimal",
+            placeholder: "Monto en USD de esta cuenta",
+            value: aporteCuentaMonto[g.id] || "",
+            onChange: function onChange(e) {
+              return setAporteCuentaMonto(_objectSpread(_objectSpread({}, aporteCuentaMonto), {}, _defineProperty({}, g.id, e.target.value)));
+            },
+            className: "w-full mt-1 p-2 fig",
+            style: {
+              borderRadius: 8,
+              border: "1px solid ".concat(COLORS.line),
+              fontSize: 12
+            }
+          })), /*#__PURE__*/React.createElement("div", {
             className: "flex gap-2 mb-2"
           }, /*#__PURE__*/React.createElement(MoneyText, {
             placeholder: "Retiro",
@@ -4752,8 +4814,12 @@
             onClick: function onClick() {
               var v = Number(retiro[g.id]);
               if (v > 0 && v <= g.saved) {
-                onWithdraw(g.id, v);
+                var accId = retiroCuenta[g.id] || null;
+                var accAmt = accId && retiroCuentaMonto[g.id] ? Number(retiroCuentaMonto[g.id]) : undefined;
+                onWithdraw(g.id, v, accId, accAmt);
                 setRetiro(_objectSpread(_objectSpread({}, retiro), {}, _defineProperty({}, g.id, "")));
+                setRetiroCuenta(_objectSpread(_objectSpread({}, retiroCuenta), {}, _defineProperty({}, g.id, null)));
+                setRetiroCuentaMonto(_objectSpread(_objectSpread({}, retiroCuentaMonto), {}, _defineProperty({}, g.id, "")));
               }
             },
             style: {
@@ -4763,7 +4829,43 @@
               padding: "0 14px"
             },
             className: "text-sm font-medium"
-          }, "Retirar")), !conciliando ? /*#__PURE__*/React.createElement("button", {
+          }, "Retirar")), accounts && accounts.length > 0 && /*#__PURE__*/React.createElement("div", {
+            className: "mb-2"
+          }, /*#__PURE__*/React.createElement("select", {
+            value: retiroCuenta[g.id] || "",
+            onChange: function onChange(e) {
+              return setRetiroCuenta(_objectSpread(_objectSpread({}, retiroCuenta), {}, _defineProperty({}, g.id, e.target.value || null)));
+            },
+            className: "w-full p-2",
+            style: {
+              borderRadius: 10,
+              border: "1px solid ".concat(COLORS.line),
+              fontSize: 12
+            }
+          }, /*#__PURE__*/React.createElement("option", {
+            value: ""
+          }, "\xBFA qu\xE9 cuenta llega el retiro? (opcional)"), accounts.map(function (a) {
+            return /*#__PURE__*/React.createElement("option", {
+              key: a.id,
+              value: a.id
+            }, a.name, " (", a.currency === "USD" ? fmtUSD(a.balance) : fmt(a.balance), ")");
+          })), retiroCuenta[g.id] && ((_accounts$find4 = accounts.find(function (a) {
+            return a.id === retiroCuenta[g.id];
+          })) === null || _accounts$find4 === void 0 ? void 0 : _accounts$find4.currency) === "USD" && /*#__PURE__*/React.createElement("input", {
+            type: "number",
+            inputMode: "decimal",
+            placeholder: "Monto en USD para esta cuenta",
+            value: retiroCuentaMonto[g.id] || "",
+            onChange: function onChange(e) {
+              return setRetiroCuentaMonto(_objectSpread(_objectSpread({}, retiroCuentaMonto), {}, _defineProperty({}, g.id, e.target.value)));
+            },
+            className: "w-full mt-1 p-2 fig",
+            style: {
+              borderRadius: 8,
+              border: "1px solid ".concat(COLORS.line),
+              fontSize: 12
+            }
+          })), !conciliando ? /*#__PURE__*/React.createElement("button", {
             onClick: function onClick() {
               return setConciliar(_objectSpread(_objectSpread({}, conciliar), {}, _defineProperty({}, g.id, true)));
             },
@@ -4815,26 +4917,26 @@
 
       // ---------- Auth ----------
       function AuthScreen() {
-        var _useState59 = useState("signin"),
-          _useState60 = _slicedToArray(_useState59, 2),
-          mode = _useState60[0],
-          setMode = _useState60[1];
-        var _useState61 = useState(""),
-          _useState62 = _slicedToArray(_useState61, 2),
-          email = _useState62[0],
-          setEmail = _useState62[1];
-        var _useState63 = useState(""),
-          _useState64 = _slicedToArray(_useState63, 2),
-          password = _useState64[0],
-          setPassword = _useState64[1];
-        var _useState65 = useState(""),
-          _useState66 = _slicedToArray(_useState65, 2),
-          error = _useState66[0],
-          setError = _useState66[1];
-        var _useState67 = useState(false),
+        var _useState67 = useState("signin"),
           _useState68 = _slicedToArray(_useState67, 2),
-          loading = _useState68[0],
-          setLoading = _useState68[1];
+          mode = _useState68[0],
+          setMode = _useState68[1];
+        var _useState69 = useState(""),
+          _useState70 = _slicedToArray(_useState69, 2),
+          email = _useState70[0],
+          setEmail = _useState70[1];
+        var _useState71 = useState(""),
+          _useState72 = _slicedToArray(_useState71, 2),
+          password = _useState72[0],
+          setPassword = _useState72[1];
+        var _useState73 = useState(""),
+          _useState74 = _slicedToArray(_useState73, 2),
+          error = _useState74[0],
+          setError = _useState74[1];
+        var _useState75 = useState(false),
+          _useState76 = _slicedToArray(_useState75, 2),
+          loading = _useState76[0],
+          setLoading = _useState76[1];
         var submit = /*#__PURE__*/function () {
           var _submit = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee4() {
             var _ref29, _error, _t2, _t3;
@@ -4973,10 +5075,10 @@
 
       // ---------- Raíz: maneja sesión ----------
       function Root() {
-        var _useState69 = useState(undefined),
-          _useState70 = _slicedToArray(_useState69, 2),
-          session = _useState70[0],
-          setSession = _useState70[1];
+        var _useState77 = useState(undefined),
+          _useState78 = _slicedToArray(_useState77, 2),
+          session = _useState78[0],
+          setSession = _useState78[1];
         useEffect(function () {
           supabaseClient.auth.getSession().then(function (_ref30) {
             var data = _ref30.data;
